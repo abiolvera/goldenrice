@@ -634,7 +634,7 @@ countryLivesList = List.map(
 
 @name("Lives Saved by Country")
 livesByCountry = {
-  xScale = Scale.log({ min: 100, max: 100000, title: "Lives Saved" })
+  xScale = Scale.symlog({ min: -500, max: 100000, title: "Lives Saved" })
 
   Table.make(
     countryLivesList,
