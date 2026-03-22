@@ -601,8 +601,10 @@ calculateCountry(country) = {
 
 // == Aggregate Results ==
 
+@hide
 allResults = List.map(countries, calculateCountry) -> List.flatten
 
+@hide
 totalLivesByYear = List.reduce(
   allResults,
   {},
@@ -619,33 +621,65 @@ totalLivesByYear = List.reduce(
 @format(",.0f")
 totalLivesSaved = List.reduce(allResults, 0, {|acc, r| acc + r.livesSaved})
 
+@hide
+countryLivesList = List.map(
+  countries,
+  {
+    |country|
+    countryResults = List.filter(allResults, {|r| r.country == country.name})
+    total = List.reduce(countryResults, 0, {|acc, r| acc + r.livesSaved})
+    { name: country.name, livesSaved: total }
+  }
+)
+
 @name("Lives Saved by Country")
 livesByCountry = {
-  countryTotals = List.map(
-    countries,
+  xScale = Scale.symlog({ min: 0, max: 100000, constant: 10, title: "Lives Saved" })
+
+  Table.make(
+    countryLivesList,
     {
-      |country|
-      countryResults = List.filter(allResults, {|r| r.country == country.name})
-      total = List.reduce(countryResults, 0, {|acc, r| acc + r.livesSaved})
-      { country: country.name, total: total }
+      columns: [
+        { name: "Country", fn: {|r| r.name} },
+        { name: "Median", fn: {|r| Dist.inv(r.livesSaved, 0.5)} },
+        {
+          name: "Distribution",
+          fn: {
+            |r|
+            Plot.dist(
+              Dist.truncate(r.livesSaved, 0, Number.maxValue),
+              {
+                xScale: xScale,
+                showSummary: false,
+              }
+            )
+          },
+        },
+      ],
     }
   )
-  countryTotals
 }
 
 @name("DALYs Prevented")
 dalysPrevented = {
+  @name("Years of Life Lost Prevented") @format(",.0f")
   yll = totalLivesSaved * params.dalyYearsPerDeath
+
   blindChildrenPrevented = totalLivesSaved * params.dalyBlindnessPerDeath
+
+  @name("Years Lived with Disability Prevented") @format(",.0f")
   yld = blindChildrenPrevented * params.dalyPerBlindChild
+
+  @name("Total DALYs Prevented") @format(",.0f")
   totalDalys = yll + yld
 
-  { yll: yll, yld: yld, total: totalDalys }
+  { yll, yld, total: totalDalys }
 }
 
 // == Cost-Effectiveness Analysis ==
 
 @name("CEA Benchmarks")
+@hide
 cea = {
   // Golden Rice R&D + deployment costs
   // IRRI GR program: ~$100M (1999-2021) + Gates Foundation: ~$50M
@@ -692,36 +726,49 @@ cea = {
 
 @name("Cost-Effectiveness Results")
 costEffectiveness = {
+  @name("Total GR Program Cost") @format("$,.0f")
   totalGrCost = cea.grRdCostUsd +
     cea.grDeploymentCostPerCountryUsd * cea.grNDeploymentCountries
 
+  @name("GR: Cost per Life Saved") @format("$,.0f")
   costPerLifeGr = totalGrCost / totalLivesSaved
 
-  // VAS comparator: cost per life saved
+  @name("VAS: Cost per Life Saved") @format("$,.0f")
   costPerLifeVas = cea.vasCostPerChildPerYearUsd * 1000 /
     cea.vasLivesSavedPer1000
 
   // Rice fortification comparator (rough estimate)
   // ~250M rice-eating children in model countries × $0.18/person × 25 years
+  @hide
   targetRiceChildren = 250000000
+  @hide
   annualFortCost = targetRiceChildren * cea.riceFortCostPerPersonPerYearUsd
+  @hide
   modelYears = params.modelEndYear - params.modelStartYear + 1
+  @hide
   totalFortCost = annualFortCost * modelYears
   // Assume fortification ~2x more effective delivery (instant, no adoption lag)
+  @hide
   fortLivesSavedEst = totalLivesSaved * 2
+
+  @name("Rice Fortification: Cost per Life Saved") @format("$,.0f")
   costPerLifeFort = totalFortCost / fortLivesSavedEst
 
+  @name("GiveWell Bar (AMF Nets)") @format("$,.0f")
+  givewellBar = cea.givewellBarUsdPerLife
+
   {
-    totalGrCost: totalGrCost,
-    costPerLifeGr: costPerLifeGr,
-    costPerLifeVas: costPerLifeVas,
-    costPerLifeFort: costPerLifeFort,
-    givewellBar: cea.givewellBarUsdPerLife,
+    totalGrCost,
+    costPerLifeGr,
+    costPerLifeVas,
+    costPerLifeFort,
+    givewellBar,
   }
 }
 
 // == Tests ==
 
+@hide
 helper_tests = sTest.describe(
   "Helper Function Tests",
   [
@@ -756,6 +803,7 @@ helper_tests = sTest.describe(
   ]
 )
 
+@hide
 model_tests = sTest.describe(
   "Model Calculation Tests",
   [
@@ -793,6 +841,8 @@ Golden Rice → daily beta-carotene in staple food → reduced vitamin A deficie
 
 **Key Results:**",
   { totalLivesSaved, dalysPrevented, costEffectiveness },
+  "## Lives Saved by Country",
+  livesByCountry,
   "## Countries Modeled
 
 The model covers 11 countries representing ~85% of potential GR impact:
