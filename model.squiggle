@@ -621,16 +621,47 @@ totalLivesSaved = List.reduce(allResults, 0, {|acc, r| acc + r.livesSaved})
 
 @name("Lives Saved by Country")
 livesByCountry = {
-  countryTotals = List.map(
-    countries,
-    {
-      |country|
-      countryResults = List.filter(allResults, {|r| r.country == country.name})
-      total = List.reduce(countryResults, 0, {|acc, r| acc + r.livesSaved})
-      { country: country.name, total: total }
-    }
-  )
-  countryTotals
+  countryLives(country) = {
+    countryResults = List.filter(allResults, {|r| r.country == country.name})
+    List.reduce(countryResults, 0, {|acc, r| acc + r.livesSaved})
+  }
+
+  @name("Bangladesh") @format(",.0f")
+  bangladesh = countryLives(countryData.bgd)
+  @name("Philippines") @format(",.0f")
+  philippines = countryLives(countryData.phl)
+  @name("India") @format(",.0f")
+  india = countryLives(countryData.ind)
+  @name("Indonesia") @format(",.0f")
+  indonesia = countryLives(countryData.idn)
+  @name("Vietnam") @format(",.0f")
+  vietnam = countryLives(countryData.vnm)
+  @name("Myanmar") @format(",.0f")
+  myanmar = countryLives(countryData.mmr)
+  @name("Cambodia") @format(",.0f")
+  cambodia = countryLives(countryData.khm)
+  @name("Nigeria") @format(",.0f")
+  nigeria = countryLives(countryData.nga)
+  @name("Nepal") @format(",.0f")
+  nepal = countryLives(countryData.npl)
+  @name("Laos") @format(",.0f")
+  laos = countryLives(countryData.lao)
+  @name("Tanzania") @format(",.0f")
+  tanzania = countryLives(countryData.tza)
+
+  {
+    bangladesh,
+    philippines,
+    india,
+    indonesia,
+    vietnam,
+    myanmar,
+    cambodia,
+    nigeria,
+    nepal,
+    laos,
+    tanzania,
+  }
 }
 
 @name("DALYs Prevented")
