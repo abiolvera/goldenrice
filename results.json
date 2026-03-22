@@ -1,0 +1,169 @@
+{
+  "params": {
+    "model_start_year": 2000,
+    "model_end_year": 2024,
+    "beta_carotene_ug_per_g_dry": 18.0,
+    "storage_retention_fraction": 0.65,
+    "cooking_retention_fraction": 0.6,
+    "bioconversion_ratio": 12.0,
+    "child_rda_ug_rae": 400.0,
+    "child_fraction_of_adult_rice_intake": 0.3,
+    "adoption_midpoint_years": 8.0,
+    "adoption_steepness": 0.45,
+    "adoption_ceiling": 0.7,
+    "relative_risk_vad": 1.75,
+    "effective_vas_multiplier": 0.7,
+    "annual_vad_decline_rate": null,
+    "include_maternal_deaths": false,
+    "maternal_death_fraction": 0.15,
+    "dose_response_concavity": 0.6,
+    "daly_years_lost_per_death": 28.0,
+    "daly_blindness_per_death": 0.8,
+    "daly_blind_dalys_per_child": 21.0
+  },
+  "summary": {
+    "cumulative_lives_saved": 138417.08358783013,
+    "peak_annual_lives_saved": 13555.71259060166,
+    "peak_year": 2021,
+    "avg_lives_per_year_deployed": 7689.8379771016735
+  },
+  "by_country": {
+    "BGD": {
+      "name": "Bangladesh",
+      "region": "SAsia",
+      "cumulative_lives_saved": 3990.2839005854967,
+      "peak_annual_lives_saved": 339.31995910895677,
+      "peak_year": 2018,
+      "gr_deployment_year": 2007,
+      "gr_efficacy": 0.21035958904109583,
+      "gr_rae_per_day": 84.14383561643834
+    },
+    "PHL": {
+      "name": "Philippines",
+      "region": "SEA",
+      "cumulative_lives_saved": 2246.928983775851,
+      "peak_annual_lives_saved": 183.73000096333132,
+      "peak_year": 2017,
+      "gr_deployment_year": 2006,
+      "gr_efficacy": 0.13823630136986298,
+      "gr_rae_per_day": 55.29452054794519
+    },
+    "IND": {
+      "name": "India",
+      "region": "SAsia",
+      "cumulative_lives_saved": 104135.3770099552,
+      "peak_annual_lives_saved": 10382.621308404392,
+      "peak_year": 2021,
+      "gr_deployment_year": 2009,
+      "gr_efficacy": 0.17429794520547945,
+      "gr_rae_per_day": 69.71917808219177
+    },
+    "IDN": {
+      "name": "Indonesia",
+      "region": "SEA",
+      "cumulative_lives_saved": 13203.75520248625,
+      "peak_annual_lives_saved": 1216.0014391579148,
+      "peak_year": 2019,
+      "gr_deployment_year": 2008,
+      "gr_efficacy": 0.162277397260274,
+      "gr_rae_per_day": 64.91095890410959
+    },
+    "VNM": {
+      "name": "Vietnam",
+      "region": "SEA",
+      "cumulative_lives_saved": 3196.059884424327,
+      "peak_annual_lives_saved": 269.2512285584652,
+      "peak_year": 2018,
+      "gr_deployment_year": 2007,
+      "gr_efficacy": 0.19833904109589034,
+      "gr_rae_per_day": 79.33561643835614
+    },
+    "MMR": {
+      "name": "Myanmar",
+      "region": "SEA",
+      "cumulative_lives_saved": 4434.859736067776,
+      "peak_annual_lives_saved": 441.24043049771825,
+      "peak_year": 2022,
+      "gr_deployment_year": 2009,
+      "gr_efficacy": 0.2344006849315069,
+      "gr_rae_per_day": 93.76027397260276
+    },
+    "KHM": {
+      "name": "Cambodia",
+      "region": "SEA",
+      "cumulative_lives_saved": 1182.1333193395387,
+      "peak_annual_lives_saved": 124.72744930804049,
+      "peak_year": 2021,
+      "gr_deployment_year": 2010,
+      "gr_efficacy": 0.24041095890410955,
+      "gr_rae_per_day": 96.16438356164382
+    },
+    "NGA": {
+      "name": "Nigeria",
+      "region": "Africa",
+      "cumulative_lives_saved": 4516.696916017141,
+      "peak_annual_lives_saved": 706.6219773965669,
+      "peak_year": 2024,
+      "gr_deployment_year": 2012,
+      "gr_efficacy": 0.04808219178082191,
+      "gr_rae_per_day": 19.232876712328764
+    },
+    "NPL": {
+      "name": "Nepal",
+      "region": "SAsia",
+      "cumulative_lives_saved": 523.501433923653,
+      "peak_annual_lives_saved": 50.38024743854462,
+      "peak_year": 2019,
+      "gr_deployment_year": 2009,
+      "gr_efficacy": 0.14424657534246577,
+      "gr_rae_per_day": 57.6986301369863
+    },
+    "LAO": {
+      "name": "Laos",
+      "region": "SEA",
+      "cumulative_lives_saved": 618.9934360112672,
+      "peak_annual_lives_saved": 76.01961266824279,
+      "peak_year": 2023,
+      "gr_deployment_year": 2011,
+      "gr_efficacy": 0.22839041095890408,
+      "gr_rae_per_day": 91.35616438356163
+    },
+    "TZA": {
+      "name": "Tanzania",
+      "region": "Africa",
+      "cumulative_lives_saved": 368.4937652436245,
+      "peak_annual_lives_saved": 61.190103115386044,
+      "peak_year": 2024,
+      "gr_deployment_year": 2013,
+      "gr_efficacy": 0.03846575342465753,
+      "gr_rae_per_day": 15.386301369863013
+    }
+  },
+  "global_by_year": {
+    "2000": 0.0,
+    "2001": 0.0,
+    "2002": 0.0,
+    "2003": 0.0,
+    "2004": 0.0,
+    "2005": 0.0,
+    "2006": 0.0,
+    "2007": 28.111966723214607,
+    "2008": 140.5425457888358,
+    "2009": 339.78351124359983,
+    "2010": 1801.2121869638024,
+    "2011": 2535.966011353993,
+    "2012": 3486.2160540739806,
+    "2013": 4716.201028145344,
+    "2014": 6116.407644636435,
+    "2015": 7606.994886158606,
+    "2016": 9402.380451630726,
+    "2017": 11057.871898349253,
+    "2018": 12350.471500234218,
+    "2019": 13126.793860090362,
+    "2020": 13344.765600795328,
+    "2021": 13555.71259060166,
+    "2022": 13409.963466471516,
+    "2023": 12997.258454679093,
+    "2024": 12400.429929890168
+  }
+}

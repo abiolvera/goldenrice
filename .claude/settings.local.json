@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Skill(update-config)",
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(python3 -c \"import numpy; import scipy; print\\(''numpy'', numpy.__version__, ''scipy'', scipy.__version__\\)\")",
+      "Bash(python3 -c 'import numpy')",
+      "Bash(conda info:*)",
+      "Read(//usr/local/bin/**)",
+      "Read(//Users/aolvera/**)",
+      "Bash(ls -la /Users/aolvera/claude/goldenrice/*.md)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}
