@@ -1,0 +1,12 @@
+{
+  "name": "goldenrice",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "run": "squiggle run model.squiggle"
+  },
+  "dependencies": {
+    "@quri/squiggle-lang": "^0.10.0",
+    "date-fns": "^4.1.0"
+  }
+}
