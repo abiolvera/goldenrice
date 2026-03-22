@@ -634,7 +634,7 @@ countryLivesList = List.map(
 
 @name("Lives Saved by Country")
 livesByCountry = {
-  xScale = Scale.symlog({ min: -500, max: 100000, title: "Lives Saved" })
+  xScale = Scale.linear({ min: 0, max: 50000, title: "Lives Saved" })
 
   Table.make(
     countryLivesList,
@@ -647,7 +647,7 @@ livesByCountry = {
           fn: {
             |r|
             Plot.dist(
-              r.livesSaved,
+              Dist.truncate(r.livesSaved, 0, Number.maxValue),
               {
                 xScale: xScale,
                 showSummary: false,
