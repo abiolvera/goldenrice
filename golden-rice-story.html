@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Golden Rice: The Cost of Delay</title>
+<style>
+  :root {
+    --gold: #b8860b;
+    --gold-light: #f5e6c8;
+    --gold-bg: #fdf8ef;
+    --red: #8b1a1a;
+    --red-light: #f9e8e8;
+    --text: #1a1a1a;
+    --text-light: #555;
+    --link: #1a5276;
+    --bg: #fafaf7;
+    --border: #ddd;
+    --white: #fff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  /* --- Hero --- */
+  .hero {
+    padding: 3rem 0 2rem;
+    border-bottom: 3px solid var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .hero h1 {
+    font-size: 2.4rem;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero .subtitle {
+    font-size: 1.15rem;
+    color: var(--text-light);
+    line-height: 1.6;
+    max-width: 640px;
+  }
+
+  .hero .byline {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #888;
+  }
+
+  /* --- Sections --- */
+  section { margin-bottom: 3rem; }
+
+  h2 {
+    font-size: 1.55rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+    padding-top: 0.5rem;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  p { margin-bottom: 1rem; }
+
+  a { color: var(--link); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:hover { text-decoration-thickness: 2px; }
+
+  /* --- Citations --- */
+  sup.cite a {
+    font-size: 0.75rem;
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0 1px;
+  }
+  sup.cite a:hover { text-decoration: underline; }
+
+  /* --- Callout boxes --- */
+  .callout {
+    background: var(--gold-bg);
+    border-left: 4px solid var(--gold);
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .callout-red {
+    background: var(--red-light);
+    border-left-color: var(--red);
+  }
+
+  .callout p:last-child { margin-bottom: 0; }
+
+  .callout strong { color: var(--red); }
+
+  /* --- Big number --- */
+  .big-number {
+    text-align: center;
+    padding: 2rem 1rem;
+    margin: 2rem 0;
+    background: var(--red-light);
+    border-radius: 8px;
+  }
+
+  .big-number .num {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--red);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .big-number .label {
+    font-size: 1.05rem;
+    color: var(--text-light);
+    margin-top: 0.3rem;
+  }
+
+  /* --- Data table --- */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    line-height: 1.4;
+  }
+
+  th {
+    background: #f0ece0;
+    font-weight: 700;
+    text-align: left;
+    padding: 0.6rem 0.65rem;
+    border-bottom: 2px solid var(--gold);
+    white-space: nowrap;
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+
+  td {
+    padding: 0.55rem 0.65rem;
+    border-bottom: 1px solid #e8e4d8;
+    vertical-align: top;
+  }
+
+  tr:last-child td { border-bottom: 2px solid var(--gold); }
+
+  .num-cell { text-align: right; font-variant-numeric: tabular-nums; }
+
+  tr.total-row { background: var(--gold-bg); font-weight: 700; }
+  tr.total-row td { border-bottom: 2px solid var(--gold); border-top: 2px solid var(--gold); }
+
+  td .source-note {
+    display: block;
+    font-size: 0.73rem;
+    color: #888;
+    margin-top: 1px;
+  }
+
+  /* --- Bar chart --- */
+  .bar-chart {
+    margin: 2rem 0;
+  }
+
+  .bar-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .bar-label {
+    width: 110px;
+    flex-shrink: 0;
+    text-align: right;
+    padding-right: 12px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .bar-track {
+    flex: 1;
+    background: #ece8db;
+    border-radius: 3px;
+    height: 26px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    background: var(--red);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    min-width: 2px;
+    transition: width 0.5s ease;
+  }
+
+  .bar-fill.gold { background: var(--gold); }
+
+  .bar-value {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-left: 8px;
+    white-space: nowrap;
+  }
+
+  .bar-value-inside {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--white);
+    white-space: nowrap;
+  }
+
+  /* --- Year-by-year chart --- */
+  .year-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 200px;
+    margin: 1.5rem 0 0.5rem;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 0;
+  }
+
+  .year-bar-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: flex-end;
+  }
+
+  .year-bar {
+    width: 100%;
+    background: var(--red);
+    border-radius: 2px 2px 0 0;
+    min-height: 1px;
+    position: relative;
+  }
+
+  .year-bar:hover { opacity: 0.8; }
+
+  .year-labels {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 1.5rem;
+  }
+
+  .year-labels span {
+    flex: 1;
+    text-align: center;
+    font-size: 0.65rem;
+    color: #888;
+  }
+
+  /* --- Assumptions box --- */
+  .assumptions {
+    background: #f5f4ef;
+    border: 1px solid #ddd9cb;
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+
+  .assumptions h4 {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+  }
+
+  .assumptions ul {
+    margin: 0;
+    padding-left: 1.2rem;
+  }
+
+  .assumptions li {
+    margin-bottom: 0.3rem;
+  }
+
+  /* --- Formula --- */
+  .formula {
+    background: #f5f4ef;
+    border: 1px solid #ddd9cb;
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    overflow-x: auto;
+    white-space: pre-wrap;
+  }
+
+  /* --- References --- */
+  .references {
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: var(--text-light);
+  }
+
+  .references ol {
+    padding-left: 1.5rem;
+  }
+
+  .references li {
+    margin-bottom: 0.6rem;
+    word-break: break-word;
+  }
+
+  .references li a { color: var(--link); }
+
+  /* --- Responsive --- */
+  @media (max-width: 600px) {
+    body { font-size: 16px; }
+    .hero h1 { font-size: 1.8rem; }
+    .big-number .num { font-size: 2.5rem; }
+    .bar-label { width: 80px; font-size: 0.8rem; }
+    .container { padding: 1rem; }
+    th, td { padding: 0.4rem 0.45rem; font-size: 0.78rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <h1>Golden Rice: The Cost of Delay</h1>
+  <p class="subtitle">Two scientists made a rice that could prevent childhood blindness and death. They gave it away for free. Then activists got it banned.</p>
+  <p class="byline">Abi Olvera &middot; June 2026</p>
+</header>
+
+<!-- ============ THE STORY ============ -->
+<section>
+  <h2>What happened</h2>
+
+  <p>In 1999, two professors in Europe created a new kind of rice. They added genes that make the grain produce beta-carotene, the same orange pigment in carrots. Your body turns beta-carotene into vitamin A. They called it Golden Rice because the grains are yellow.<sup class="cite"><a href="#ref1">[1]</a></sup></p>
+
+  <p>This mattered because <strong>vitamin A deficiency is one of the leading killers of young children worldwide.</strong> The World Health Organization estimates that 250,000 to 500,000 vitamin-A-deficient children go blind every year. Half of them die within 12 months of losing their sight.<sup class="cite"><a href="#ref2">[2]</a></sup> A major 2015 study in <em>The Lancet</em> estimated that about 105,000 children under 5 die each year from diarrhea and measles made worse by vitamin A deficiency.<sup class="cite"><a href="#ref3">[3]</a></sup></p>
+
+  <p>Even when it doesn't kill, vitamin A deficiency destroys immune systems, stunts growth, and causes blindness. Nearly all of these children live in South Asia and Sub-Saharan Africa&mdash;places where families are poor and rice is what they eat every day. Regular white rice has zero vitamin A.<sup class="cite"><a href="#ref4">[4]</a></sup></p>
+
+  <p>The professors essentially made it open-source. They navigated 70 patents held by 32 companies and universities, then struck a deal with Syngenta&mdash;one of the world's largest agricultural biotech companies&mdash;and set up a <strong>humanitarian license</strong>: any farmer earning under $10,000 a year can grow Golden Rice for free, save seeds, and replant. No royalties. No surcharges.<sup class="cite"><a href="#ref5">[5]</a></sup></p>
+
+  <h3>Then it got blocked</h3>
+
+  <p><strong>Greenpeace</strong> ran campaigns against Golden Rice in the Philippines, Bangladesh, India, and across Southeast Asia starting in 2001. Their core argument: genetically modified foods are dangerous to the environment and human health.<sup class="cite"><a href="#ref6">[6]</a></sup></p>
+
+  <p>For context, GMOs are broadly used. <strong>96% of soybeans, 96% of cotton, and 92% of corn</strong> grown in the United States are genetically modified.<sup class="cite"><a href="#ref9">[9]</a></sup> Virtually all US sugar beets are GMO. The Hawaiian papaya industry was saved by a GMO variety in the 1990s.<sup class="cite"><a href="#ref10">[10]</a></sup> Billions of people eat GMO-derived food every day. No major scientific body has found evidence of harm from approved GMO crops.<sup class="cite"><a href="#ref9">[9]</a></sup></p>
+
+  <p>In <strong>June 2016</strong>, 107 Nobel Prize laureates signed an open letter calling on Greenpeace to "cease and desist in its campaign against Golden Rice." The letter asked: <em>"How many poor people in the world must die before we consider this a 'crime against humanity'?"</em><sup class="cite"><a href="#ref8">[8]</a></sup></p>
+
+  <h3>The safety agencies said yes. The courts said no.</h3>
+
+  <p>Every major food safety regulator that has reviewed Golden Rice has approved it:</p>
+  <ul style="margin: 0 0 1rem 1.5rem;">
+    <li>Australia &amp; New Zealand (Dec 2017)<sup class="cite"><a href="#ref11">[11]</a></sup></li>
+    <li>Canada (March 2018)<sup class="cite"><a href="#ref12">[12]</a></sup></li>
+    <li>United States FDA (May 2018)<sup class="cite"><a href="#ref13">[13]</a></sup></li>
+    <li>Philippines&mdash;food safety (Dec 2019), commercial propagation (July 2021)<sup class="cite"><a href="#ref14">[14]</a></sup></li>
+  </ul>
+
+  <p>The Philippines became the <strong>first country in the world</strong> to approve Golden Rice for commercial planting in July 2021. Farmers started growing it. Then Greenpeace Southeast Asia and MASIPAG petitioned the courts.</p>
+
+  <p>In <strong>April 2024</strong>, the Philippine Court of Appeals revoked the biosafety permit, issued a cease-and-desist order on all cultivation and research, and applied the "precautionary principle"&mdash;ruling that the burden of proof falls on those trying to change the status quo.<sup class="cite"><a href="#ref15">[15]</a></sup> The Philippine Supreme Court case is still pending as of 2026.</p>
+
+  <p>In <strong>Bangladesh</strong>, a regulatory application for commercial propagation has been sitting with the government since November 2017. It has been pending for over 8 years with no decision.<sup class="cite"><a href="#ref16">[16]</a></sup></p>
+
+  <p><strong>As of 2026, no country on Earth is growing Golden Rice commercially.</strong></p>
+</section>
+
+<!-- ============ THE ESTIMATE ============ -->
+<section>
+  <h2>What this has cost</h2>
+
+  <p>I'm only counting countries where <strong>three things are true at the same time</strong>:</p>
+  <ol style="margin: 0 0 1rem 1.5rem;">
+    <li>Vitamin A deficiency is a significant cause of child death</li>
+    <li>Rice is a major part of the diet (not cassava, not maize, not wheat)</li>
+    <li>The country grows enough of its own rice that switching to Golden Rice varieties would actually reach children</li>
+  </ol>
+
+  <p>China is excluded because VAD prevalence has dropped to very low levels there. Countries where yams, cassava, or maize are the primary staple (most of Sub-Saharan Africa) are excluded or heavily discounted because Golden Rice only helps if people actually eat rice.</p>
+
+  <div class="callout">
+    <p>This is a back-of-the-envelope estimate&mdash;a simplified model, not an exhaustive one. I'm not an academic with a research team. I'm trying to get the best answer I can to a question I think is important that no one's been answering. Every input and source is shown below so you can check the math.</p>
+  </div>
+</section>
+
+<!-- ============ COUNTRY TABLE ============ -->
+<section>
+  <h2>The country breakdown</h2>
+
+  <p>This table shows what would happen <strong>today</strong> if every grain of domestically produced rice in each country were Golden Rice.</p>
+
+  <div class="assumptions">
+    <h4>How we calculated "vitamin A delivered per day"</h4>
+    <ul>
+      <li><strong>Beta-carotene in GR2E grain:</strong> 18 &micro;g/g (field-realistic, between lab peak of 31 and Swamy 2019 field mean of 3.57)<sup class="cite"><a href="#ref17">[17]</a></sup><sup class="cite"><a href="#ref18">[18]</a></sup></li>
+      <li><strong>Storage retention:</strong> 65% survives 3&ndash;6 months of tropical storage<sup class="cite"><a href="#ref19">[19]</a></sup></li>
+      <li><strong>Cooking retention:</strong> 60% survives cooking<sup class="cite"><a href="#ref20">[20]</a></sup></li>
+      <li><strong>Bioconversion:</strong> 3.8:1 ratio (Golden Rice&ndash;specific; see note below)<sup class="cite"><a href="#ref21">[21]</a></sup></li>
+      <li><strong>Child rice intake:</strong> 30% of per-capita adult consumption<sup class="cite"><a href="#ref22">[22]</a></sup></li>
+      <li><strong>Child RDA:</strong> 400 &micro;g retinol activity equivalents (RAE) per day<sup class="cite"><a href="#ref23">[23]</a></sup></li>
+    </ul>
+    <p style="margin-top: 0.5rem; font-size: 0.82rem; color: #888;"><strong>Important caveat:</strong> The 18 &micro;g/g and 65% storage figures are optimistic. The most rigorous field trial data (Swamy 2019) found only 3.57 &micro;g/g in milled GR2E rice,<sup class="cite"><a href="#ref18">[18]</a></sup> and Bollinedi 2019 found only 16% survival after 6 months at room temperature.<sup class="cite"><a href="#ref19">[19]</a></sup> Newer breeding lines (BRRI dhan29) achieve 8.5&ndash;12.5 &micro;g/g, and shorter storage would improve retention.<sup class="cite"><a href="#ref24">[24]</a></sup> With the most conservative published data, all estimates below would drop by roughly 70&ndash;85%. The truth is somewhere in between.</p>
+    <p style="margin-top: 0.5rem; font-size: 0.82rem; color: #888;"><strong>Why 3.8:1 bioconversion instead of the WHO 12:1 default:</strong> The WHO uses 12:1 as a generic ratio for all plant-source beta-carotene&mdash;spinach, carrots, sweet potatoes, etc. But those foods store beta-carotene in green tissue, behind plant cell walls and chloroplasts that the gut has trouble breaking down. Golden Rice is different: the beta-carotene is in the starchy endosperm, not green tissue. The only direct measurement of Golden Rice bioconversion (Tang et al. 2009) found <strong>3.8:1</strong> in healthy adults.<sup class="cite"><a href="#ref21">[21]</a></sup> A second study in children found an even better 2.3:1, but it was retracted after uproar because researchers didn't disclose that the rice was genetically modified. It is unclear whether this disclosure was necessary. The scientific findings themselves were never challenged&mdash;only the lack of disclosure.<sup class="cite"><a href="#ref39">[39]</a></sup> If someone prefers the WHO generic 12:1 default&mdash;which appears to understate bioconversion based on both Golden Rice&ndash;specific studies in healthy children and adults&mdash;all estimates below would be roughly halved.</p>
+  </div>
+
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Country</th>
+        <th>VAD in children &lt;5</th>
+        <th>Rice as % of diet</th>
+        <th>Rice self-<wbr>sufficiency</th>
+        <th class="num-cell">Vitamin A / day<br><span style="font-weight:400;text-transform:none;font-size:0.7rem;">per child, from GR</span></th>
+        <th class="num-cell">% of daily need<br><span style="font-weight:400;text-transform:none;font-size:0.7rem;">= vit A &divide; 400&micro;g RDA</span></th>
+        <th class="num-cell">Deaths prevented / year</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>India</strong>
+          <span class="source-note">Rice-belt states only (55% of VAD children)</span>
+        </td>
+        <td>57% <span class="source-note">NFHS-2, 2000<sup class="cite"><a href="#ref25">[25]</a></sup></span></td>
+        <td>31% national; 55%+ in rice belt<sup class="cite"><a href="#ref4">[4]</a></sup></td>
+        <td>100% (net exporter)</td>
+        <td class="num-cell">220 &micro;g RAE</td>
+        <td class="num-cell">55%</td>
+        <td class="num-cell"><strong>~28,000</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Indonesia</strong></td>
+        <td>50% <span class="source-note">est., WHO SE Asia regional, 2000<sup class="cite"><a href="#ref3">[3]</a></sup></span></td>
+        <td>59%<sup class="cite"><a href="#ref4">[4]</a></sup></td>
+        <td>95%</td>
+        <td class="num-cell">205 &micro;g RAE</td>
+        <td class="num-cell">51%</td>
+        <td class="num-cell"><strong>~3,000</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Nigeria</strong>
+          <span class="source-note">Rice is secondary staple (35% of VAD children eat rice)</span>
+        </td>
+        <td>30% <span class="source-note">est.<sup class="cite"><a href="#ref26">[26]</a></sup></span></td>
+        <td>~8% (yam, cassava dominate)</td>
+        <td>55% (~45% imported)</td>
+        <td class="num-cell">60 &micro;g RAE</td>
+        <td class="num-cell">15%</td>
+        <td class="num-cell"><strong>~2,350</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Myanmar</strong></td>
+        <td>36% <span class="source-note">est., WHO SE Asia regional, 2000<sup class="cite"><a href="#ref3">[3]</a></sup></span></td>
+        <td>76%<sup class="cite"><a href="#ref4">[4]</a></sup></td>
+        <td>100% (net exporter)</td>
+        <td class="num-cell">295 &micro;g RAE</td>
+        <td class="num-cell">74%</td>
+        <td class="num-cell"><strong>~1,275</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Bangladesh</strong></td>
+        <td>21% <span class="source-note">Nat'l survey, 2000<sup class="cite"><a href="#ref27">[27]</a></sup></span></td>
+        <td>73%<sup class="cite"><a href="#ref4">[4]</a></sup></td>
+        <td>97%</td>
+        <td class="num-cell">265 &micro;g RAE</td>
+        <td class="num-cell">66%</td>
+        <td class="num-cell"><strong>~670</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Vietnam</strong></td>
+        <td>45% <span class="source-note">est., WHO SE Asia regional, 2000<sup class="cite"><a href="#ref3">[3]</a></sup></span></td>
+        <td>68%<sup class="cite"><a href="#ref4">[4]</a></sup></td>
+        <td>100% (net exporter)</td>
+        <td class="num-cell">250 &micro;g RAE</td>
+        <td class="num-cell">63%</td>
+        <td class="num-cell"><strong>~580</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Cambodia</strong></td>
+        <td>45% <span class="source-note">est., WHO SE Asia regional, 2000<sup class="cite"><a href="#ref3">[3]</a></sup></span></td>
+        <td>80%<sup class="cite"><a href="#ref4">[4]</a></sup></td>
+        <td>100% (net exporter)</td>
+        <td class="num-cell">305 &micro;g RAE</td>
+        <td class="num-cell">76%</td>
+        <td class="num-cell"><strong>~350</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Philippines</strong></td>
+        <td>38% <span class="source-note">FNRI, 2003<sup class="cite"><a href="#ref28">[28]</a></sup></span></td>
+        <td>40%<sup class="cite"><a href="#ref4">[4]</a></sup></td>
+        <td>~79%<sup class="cite"><a href="#ref29">[29]</a></sup></td>
+        <td class="num-cell">175 &micro;g RAE</td>
+        <td class="num-cell">44%</td>
+        <td class="num-cell"><strong>~330</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Laos</strong></td>
+        <td>42% <span class="source-note">est., WHO SE Asia regional, 2000<sup class="cite"><a href="#ref3">[3]</a></sup></span></td>
+        <td>65%+<sup class="cite"><a href="#ref4">[4]</a></sup></td>
+        <td>100%</td>
+        <td class="num-cell">290 &micro;g RAE</td>
+        <td class="num-cell">73%</td>
+        <td class="num-cell"><strong>~230</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Tanzania</strong>
+          <span class="source-note">Maize is primary staple (28% of VAD children eat rice)</span>
+        </td>
+        <td>33% <span class="source-note">DHS, 2004<sup class="cite"><a href="#ref30">[30]</a></sup></span></td>
+        <td>Low (maize dominant)</td>
+        <td>~60%</td>
+        <td class="num-cell">49 &micro;g RAE</td>
+        <td class="num-cell">12%</td>
+        <td class="num-cell"><strong>~220</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Nepal</strong>
+          <span class="source-note">Terai rice belt (65% of VAD children)</span>
+        </td>
+        <td>31% <span class="source-note">DHS, 2001<sup class="cite"><a href="#ref31">[31]</a></sup></span></td>
+        <td>44%<sup class="cite"><a href="#ref4">[4]</a></sup></td>
+        <td>90%</td>
+        <td class="num-cell">180 &micro;g RAE</td>
+        <td class="num-cell">45%</td>
+        <td class="num-cell"><strong>~130</strong></td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="6"><strong>TOTAL across 11 countries</strong></td>
+        <td class="num-cell"><strong>~37,000</strong></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p style="font-size: 0.85rem; color: var(--text-light);"><strong>How "deaths prevented" was calculated:</strong> For each country, we took the number of under-5 deaths attributable to VAD (from UN mortality data<sup class="cite"><a href="#ref32">[32]</a></sup> and VAD prevalence rates), subtracted the children already protected by existing vitamin A supplement programs, then multiplied by the fraction of daily vitamin A need that Golden Rice would fill. The result is how many of those remaining deaths Golden Rice could avert. Full formula and every input are in the "Show your work" section below.</p>
+
+  <h3>Deaths prevented per year if all domestic rice were Golden Rice</h3>
+
+  <div class="bar-chart">
+    <div class="bar-row">
+      <span class="bar-label">India</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 100%;"><span class="bar-value-inside">~28,000</span></div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Indonesia</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 10.8%;"></div>
+      </div>
+      <span class="bar-value">~3,000</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Nigeria</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 8.4%;"></div>
+      </div>
+      <span class="bar-value">~2,350</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Myanmar</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 4.6%;"></div>
+      </div>
+      <span class="bar-value">~1,275</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Bangladesh</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 2.4%;"></div>
+      </div>
+      <span class="bar-value">~670</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Vietnam</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 2.1%;"></div>
+      </div>
+      <span class="bar-value">~580</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Cambodia</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 1.3%;"></div>
+      </div>
+      <span class="bar-value">~350</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Philippines</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 1.2%;"></div>
+      </div>
+      <span class="bar-value">~330</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Laos</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 0.8%;"></div>
+      </div>
+      <span class="bar-value">~230</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Tanzania</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 0.8%;"></div>
+      </div>
+      <span class="bar-value">~220</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Nepal</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 0.5%;"></div>
+      </div>
+      <span class="bar-value">~130</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============ CUMULATIVE TOLL ============ -->
+<section>
+  <h2>Now multiply by years</h2>
+
+  <p>Golden Rice 2 was scientifically ready by 2005. The improved variety was published in <em>Nature Biotechnology</em> that year, achieving 23x more beta-carotene than the original.<sup class="cite"><a href="#ref17">[17]</a></sup> The first field trial was in Louisiana in 2004.<sup class="cite"><a href="#ref33">[33]</a></sup></p>
+
+  <p>But new rice varieties don't get adopted overnight. The famous "Miracle Rice" IR8, released in 1966, went from 3% to 75% adoption in the Philippines over 14 years.<sup class="cite"><a href="#ref34">[34]</a></sup> That's considered fast. And no variety reaches 100%&mdash;even the most successful top out around 70&ndash;90%.<sup class="cite"><a href="#ref34">[34]</a></sup></p>
+
+  <p>So we used a realistic adoption curve: slow at first, then accelerating, then leveling off at a 70% ceiling. We assumed deployment would have started country by country between 2006 and 2013, depending on regulatory capacity and IRRI partnerships.<sup class="cite"><a href="#ref34">[34]</a></sup></p>
+
+  <div class="callout-red callout">
+    <p><strong>Under these assumptions, our model estimates approximately 276,000 cumulative children's lives lost</strong> across these 11 countries from 2006 to 2024&mdash;lives that Golden Rice could have saved if it had been allowed to reach farmers when it was ready.</p>
+  </div>
+
+  <div class="big-number">
+    <div class="num">~276,000</div>
+    <div class="label">estimated children's lives lost, 2006&ndash;2024</div>
+  </div>
+
+  <p style="margin-top: 1.5rem;">And for every child who died, roughly two to four more went blind.</p>
+
+  <div class="big-number" style="background: var(--gold-bg); margin-top: 1rem;">
+    <div class="num" style="color: var(--gold);">~550,000&ndash;1,100,000</div>
+    <div class="label">estimated children blinded, 2006&ndash;2024</div>
+  </div>
+
+  <p style="font-size: 0.88rem; color: var(--text-light); margin-top: 1rem;">The WHO estimates that 250,000&ndash;500,000 children go blind from vitamin A deficiency each year globally&mdash;two to four times the number who die.<sup class="cite"><a href="#ref2">[2]</a></sup> Half of those children die within 12 months; the other half survive with permanent vision loss. Applying that 2&ndash;4x ratio to our death estimates gives a range of roughly 550,000&ndash;1,100,000 preventable blindness cases over this period.<sup class="cite"><a href="#ref2">[2]</a></sup><sup class="cite"><a href="#ref35">[35]</a></sup> Blindness from vitamin A deficiency is the larger tragedy by count, and the one that lasts a lifetime.</p>
+
+  <h3>Year by year: lives that could have been saved</h3>
+
+  <p>In the early years, few lives would have been saved because adoption was just starting. By the late 2010s, the model reaches peak impact as adoption approaches its ceiling. The decline after 2021 reflects falling VAD prevalence and child mortality&mdash;the underlying problem is slowly getting better even without Golden Rice, due to economic growth and vitamin A supplement programs.</p>
+
+  <div class="year-chart">
+    <div class="year-bar-group"><div class="year-bar" style="height: 0%;" title="2006: 0"></div></div>
+    <div class="year-bar-group"><div class="year-bar" style="height: 0.2%;" title="2007: 28"></div></div>
+    <div class="year-bar-group"><div class="year-bar" style="height: 1%;" title="2008: 141"></div></div>
+    <div class="year-bar-group"><div class="year-bar" style="height: 2.5%;" title="2009: 340"></div></div>
+    <div class="year-bar-group"><div class="year-bar" style="height: 13.3%;" title="2010: 1,801"></div></div>
+    <div class="year-bar-group"><div class="year-bar" style="height: 18.7%;" title="2011: 2,536"></div></div>
+    <div class="year-bar-group"><div class="year-bar" style="height: 25.7%;" title="2012: 3,486"></div></div>
+    <div class="year-bar-group"><div class="year-bar" style="height: 34.8%;" title="2013: 4,716"></div></div>
+    <div class="year-bar-group"><div class="year-bar" style="height: 45.1%;" title="2014: 6,116"></div></div>
+    <div class="year-bar-group"><div class="year-bar" style="height: 56.1%;" title="2015: 7,607"></div></div>
+    <div class="year-bar-group"><div class="year-bar" style="height: 69.4%;" title="2016: 9,402"></div></div>
+    <div class="year-bar-group"><div class="year-bar" style="height: 81.6%;" title="2017: 11,058"></div></div>
+    <div class="year-bar-group"><div class="year-bar" style="height: 91.1%;" title="2018: 12,350"></div></div>
+    <div class="year-bar-group"><div class="year-bar" style="height: 96.8%;" title="2019: 13,127"></div></div>
+    <div class="year-bar-group"><div class="year-bar" style="height: 98.4%;" title="2020: 13,345"></div></div>
+    <div class="year-bar-group"><div class="year-bar" style="height: 100%;" title="2021: 13,556"></div></div>
+    <div class="year-bar-group"><div class="year-bar" style="height: 98.9%;" title="2022: 13,410"></div></div>
+    <div class="year-bar-group"><div class="year-bar" style="height: 95.9%;" title="2023: 12,997"></div></div>
+    <div class="year-bar-group"><div class="year-bar" style="height: 91.5%;" title="2024: 12,400"></div></div>
+  </div>
+  <div class="year-labels">
+    <span>'06</span><span>'07</span><span>'08</span><span>'09</span><span>'10</span>
+    <span>'11</span><span>'12</span><span>'13</span><span>'14</span><span>'15</span>
+    <span>'16</span><span>'17</span><span>'18</span><span>'19</span><span>'20</span>
+    <span>'21</span><span>'22</span><span>'23</span><span>'24</span>
+  </div>
+  <p style="font-size: 0.82rem; color: var(--text-light); text-align: center;">Estimated annual lives saved per year if Golden Rice had been deployed starting 2006&ndash;2013 (varies by country).<br>Peak: ~27,000 in 2021. Hover/tap bars for exact values.</p>
+
+  <h3>Per-country cumulative lives lost, 2006&ndash;2024</h3>
+
+  <div class="bar-chart">
+    <div class="bar-row">
+      <span class="bar-label">India</span>
+      <div class="bar-track">
+        <div class="bar-fill gold" style="width: 100%;"><span class="bar-value-inside" style="color: #fff;">207,500</span></div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Indonesia</span>
+      <div class="bar-track">
+        <div class="bar-fill gold" style="width: 12.7%;"></div>
+      </div>
+      <span class="bar-value">26,300</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Nigeria</span>
+      <div class="bar-track">
+        <div class="bar-fill gold" style="width: 4.3%;"></div>
+      </div>
+      <span class="bar-value">9,000</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Myanmar</span>
+      <div class="bar-track">
+        <div class="bar-fill gold" style="width: 4.3%;"></div>
+      </div>
+      <span class="bar-value">8,840</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Bangladesh</span>
+      <div class="bar-track">
+        <div class="bar-fill gold" style="width: 3.8%;"></div>
+      </div>
+      <span class="bar-value">7,950</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Vietnam</span>
+      <div class="bar-track">
+        <div class="bar-fill gold" style="width: 3.1%;"></div>
+      </div>
+      <span class="bar-value">6,370</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Philippines</span>
+      <div class="bar-track">
+        <div class="bar-fill gold" style="width: 2.2%;"></div>
+      </div>
+      <span class="bar-value">4,480</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Cambodia</span>
+      <div class="bar-track">
+        <div class="bar-fill gold" style="width: 1.1%;"></div>
+      </div>
+      <span class="bar-value">2,355</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Laos</span>
+      <div class="bar-track">
+        <div class="bar-fill gold" style="width: 0.6%;"></div>
+      </div>
+      <span class="bar-value">1,235</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Nepal</span>
+      <div class="bar-track">
+        <div class="bar-fill gold" style="width: 0.5%;"></div>
+      </div>
+      <span class="bar-value">1,045</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Tanzania</span>
+      <div class="bar-track">
+        <div class="bar-fill gold" style="width: 0.4%;"></div>
+      </div>
+      <span class="bar-value">735</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHOW YOUR WORK ============ -->
+<section>
+  <h2>Show your work</h2>
+
+  <p>Here is the exact formula used for every number in this article. Every variable is defined below with its source. You can verify any number by plugging values in.</p>
+
+  <div class="formula">Lives saved (per country, per year) =
+
+  Under-5 deaths that year
+  &times; VAD attributable fraction
+  &times; (1 &minus; effective VAS coverage)
+  &times; adoption rate
+  &times; (GR efficacy fraction) ^ 0.60
+
+Where:
+  VAD attributable fraction = P(RR&minus;1) / (1 + P(RR&minus;1))
+  P = VAD prevalence that year
+  RR = 1.75 (relative risk of death for VAD children)
+
+  Effective VAS coverage = VAS coverage &times; 0.70
+  (VAS only protects ~70% of nominally covered children)
+
+  GR efficacy = min(RAE delivered / 400, 1.0)
+  RAE delivered = child rice (g) &times; 18 &times; 0.65 &times; 0.60 / 3.8
+
+  Adoption rate = logistic S-curve
+  ceiling = 70% &times; domestic rice fraction &times; rice-eating VAD fraction
+  midpoint = 8 years after deployment
+  steepness = 0.45</div>
+
+  <h3>Where each number comes from</h3>
+
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Parameter</th>
+        <th>Value</th>
+        <th>Source</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Under-5 deaths by country and year</td>
+        <td>Varies (e.g. India: 2.3M in 2000, 560K in 2024)</td>
+        <td>UN IGME / UNICEF<sup class="cite"><a href="#ref32">[32]</a></sup></td>
+      </tr>
+      <tr>
+        <td>VAD prevalence (baseline)</td>
+        <td>21&ndash;57% depending on country</td>
+        <td>WHO VMNIS, national DHS/MICS, Stevens et al. 2015<sup class="cite"><a href="#ref3">[3]</a></sup></td>
+      </tr>
+      <tr>
+        <td>VAD annual decline rate</td>
+        <td>1.5&ndash;4% per year (country-specific)</td>
+        <td>Stevens et al. 2015<sup class="cite"><a href="#ref3">[3]</a></sup></td>
+      </tr>
+      <tr>
+        <td>Relative risk of death (VAD vs. non-VAD)</td>
+        <td>1.75</td>
+        <td>Sommer et al. 1983, West et al. 1991, Fawzi et al. 1993<sup class="cite"><a href="#ref35">[35]</a></sup></td>
+      </tr>
+      <tr>
+        <td>VAS coverage by country and year</td>
+        <td>40&ndash;93%</td>
+        <td>UNICEF / WHO joint estimates<sup class="cite"><a href="#ref36">[36]</a></sup></td>
+      </tr>
+      <tr>
+        <td>VAS effectiveness multiplier</td>
+        <td>0.70</td>
+        <td>Imdad et al. Cochrane 2022<sup class="cite"><a href="#ref37">[37]</a></sup></td>
+      </tr>
+      <tr>
+        <td>Beta-carotene in GR2E (field)</td>
+        <td>18 &micro;g/g (model); 3.57 &micro;g/g (Swamy 2019)</td>
+        <td>Paine 2005<sup class="cite"><a href="#ref17">[17]</a></sup>, Swamy 2019<sup class="cite"><a href="#ref18">[18]</a></sup></td>
+      </tr>
+      <tr>
+        <td>Storage retention (tropical, 3&ndash;6 mo)</td>
+        <td>65% (model); 16&ndash;32% (Bollinedi 2019)</td>
+        <td>Bollinedi et al. 2019<sup class="cite"><a href="#ref19">[19]</a></sup></td>
+      </tr>
+      <tr>
+        <td>Cooking retention</td>
+        <td>60%</td>
+        <td>IRRI standard<sup class="cite"><a href="#ref20">[20]</a></sup></td>
+      </tr>
+      <tr>
+        <td>Bioconversion (beta-carotene &rarr; retinol)</td>
+        <td>3.8:1 (Golden Rice&ndash;specific measurement)</td>
+        <td>Tang et al. 2009<sup class="cite"><a href="#ref21">[21]</a></sup>; WHO generic is 12:1<sup class="cite"><a href="#ref23">[23]</a></sup></td>
+      </tr>
+      <tr>
+        <td>Child RDA (vitamin A)</td>
+        <td>400 &micro;g RAE/day</td>
+        <td>WHO<sup class="cite"><a href="#ref23">[23]</a></sup></td>
+      </tr>
+      <tr>
+        <td>Adoption ceiling</td>
+        <td>70%</td>
+        <td>Based on IR8 and HarvestPlus data<sup class="cite"><a href="#ref34">[34]</a></sup></td>
+      </tr>
+      <tr>
+        <td>Adoption midpoint</td>
+        <td>8 years</td>
+        <td>IR8 historical data<sup class="cite"><a href="#ref34">[34]</a></sup></td>
+      </tr>
+      <tr>
+        <td>Dose-response concavity</td>
+        <td>0.60</td>
+        <td>Estimated; reflects that partial supplementation has diminishing returns<sup class="cite"><a href="#ref35">[35]</a></sup></td>
+      </tr>
+      <tr>
+        <td>Rice consumption (per capita/year)</td>
+        <td>32&ndash;200 kg (country-specific)</td>
+        <td>FAO FAOSTAT<sup class="cite"><a href="#ref4">[4]</a></sup></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+</section>
+
+<!-- ============ KEY UNCERTAINTIES ============ -->
+<section>
+  <h2>What could be different</h2>
+
+  <p>This is an estimate, not a measurement. Here's where the biggest uncertainties are, and how much they matter:</p>
+
+  <h3>The beta-carotene content problem</h3>
+  <p>Our model uses 18 &micro;g/g, which reflects optimistic field conditions. The most rigorous published field trial (Swamy et al. 2019) found a mean of only 3.57 &micro;g/g in milled GR2E rice grown in the Philippines.<sup class="cite"><a href="#ref18">[18]</a></sup> Newer lines bred into the Bangladesh variety BRRI dhan29 achieved 8.5&ndash;12.5 &micro;g/g total carotenoids.<sup class="cite"><a href="#ref24">[24]</a></sup> <strong>If you use 3.57 instead of 18, all estimates drop by about 80%.</strong> The realistic range is probably 4&ndash;12 &micro;g/g.</p>
+
+  <h3>The storage problem</h3>
+  <p>Beta-carotene breaks down in storage. The most detailed study (Bollinedi et al. 2019) found that polished Golden Rice stored at room temperature for 6 months lost <strong>84% of its beta-carotene</strong>.<sup class="cite"><a href="#ref19">[19]</a></sup> Our model assumes only 35% loss (65% retention), which assumes shorter storage or improved storage conditions. IRRI is working on low-lipoxygenase lines to reduce this degradation.<sup class="cite"><a href="#ref19">[19]</a></sup></p>
+
+  <h3>The baseline mortality question</h3>
+  <p>How many children die from VAD per year? This is surprisingly contested. Stevens et al. (2015) estimated ~105,700.<sup class="cite"><a href="#ref3">[3]</a></sup> Older estimates (Black et al. 2008) put it at 600,000&ndash;670,000. The most recent Global Burden of Disease analysis (2021) says just ~17,000.<sup class="cite"><a href="#ref38">[38]</a></sup> Our model uses country-specific under-5 deaths and calculates VAD-attributable deaths from prevalence and relative risk, which produces numbers broadly consistent with the Stevens 2015 estimate.</p>
+
+  <h3>The bioconversion choice</h3>
+  <p>We use 3.8:1 (the Tang 2009 direct measurement on Golden Rice) rather than the WHO generic 12:1. This is explained above. If someone prefers the WHO default, all death and blindness estimates would be roughly halved.</p>
+
+  <h3>What all this means for the headline number</h3>
+  <p>Combining the biggest uncertainties: with pessimistic inputs (low beta-carotene, high storage loss, WHO generic bioconversion), the cumulative death toll could be as low as <strong>~40,000&ndash;70,000</strong>. With optimistic inputs (higher beta-carotene in newer lines, better storage, Tang 2012 bioconversion in children), it could be <strong>~500,000&ndash;800,000</strong>. Our central estimate of ~276,000 is in the middle of that range.</p>
+
+</section>
+
+
+<!-- ============ REFERENCES ============ -->
+<section>
+  <h2>References</h2>
+
+  <div class="references">
+  <ol>
+    <li id="ref1">Ye X, Al-Babili S, Kloti A, Zhang J, Lucca P, Beyer P, Potrykus I. "Engineering the Provitamin A (beta-Carotene) Biosynthetic Pathway into (Carotenoid-Free) Rice Endosperm." <em>Science</em> 287(5451): 303&ndash;305 (2000). <a href="https://www.science.org/doi/10.1126/science.287.5451.303" target="_blank">science.org</a></li>
+
+    <li id="ref2">World Health Organization. "Vitamin A Deficiency." WHO Global Database on Vitamin A Deficiency. <a href="https://www.who.int/data/nutrition/nlis/info/vitamin-a-deficiency" target="_blank">who.int</a></li>
+
+    <li id="ref3">Stevens GA, Bennett JE, Hennocq Q, et al. "Trends and mortality effects of vitamin A deficiency in children in 138 low-income and middle-income countries between 1991 and 2013." <em>Lancet Global Health</em> 3: e528&ndash;36 (2015). <a href="https://www.thelancet.com/journals/langlo/article/PIIS2214-109X(15)00039-X/fulltext" target="_blank">thelancet.com</a></li>
+
+    <li id="ref4">FAO. "Rice in Human Nutrition." Food and Agriculture Organization, Table 8. <a href="https://www.fao.org/4/t0567e/T0567E04.htm" target="_blank">fao.org</a></li>
+
+    <li id="ref5">Golden Rice Humanitarian Board. "Intellectual Property and Licensing Arrangements." <a href="https://www.goldenrice.org/Content1-Who/who4_IP.php" target="_blank">goldenrice.org</a> and <a href="https://www.goldenrice.org/Content2-How/how9_IP.php" target="_blank">goldenrice.org (licensing)</a></li>
+
+    <li id="ref6">GRAIN. "Why We Oppose Golden Rice." <a href="https://grain.org/en/article/6516-why-we-oppose-golden-rice" target="_blank">grain.org</a>. See also: MASIPAG, "Asian Farmers Unite to Stop Golden Rice." <a href="https://masipag.org/asian-farmers-unite-to-stop-golden-rice/" target="_blank">masipag.org</a></li>
+
+    <li id="ref7">Harmon A. "Golden Rice: Lifesaver?" <em>The New York Times</em> (2013). See also: The Breakthrough Institute, "The Real Story of the Anti-GMO Activists' Attack in Philippines." <a href="https://thebreakthrough.org/issues/food-agriculture-environment/the-real-story-of-the-anti-gmo-activists-attack-in-philippines" target="_blank">thebreakthrough.org</a></li>
+
+    <li id="ref8">Achenbach J. "107 Nobel laureates sign letter blasting Greenpeace over GMOs." <em>Washington Post</em> (June 29, 2016). <a href="https://www.washingtonpost.com/news/speaking-of-science/wp/2016/06/29/more-than-100-nobel-laureates-take-on-greenpeace-over-gmo-stance/" target="_blank">washingtonpost.com</a></li>
+
+    <li id="ref9">USDA Economic Research Service. "Adoption of Genetically Engineered Crops in the United States: Recent Trends." (2024 data). <a href="https://www.ers.usda.gov/data-products/adoption-of-genetically-engineered-crops-in-the-united-states/recent-trends-in-ge-adoption" target="_blank">ers.usda.gov</a></li>
+
+    <li id="ref10">American Phytopathological Society. "Rainbow Papaya: A High-Value Crop Now Protected by a Transgenic Approach." <a href="https://www.apsnet.org/edcenter/apsnetfeatures/Pages/PapayaHawaiianRainbow.aspx" target="_blank">apsnet.org</a></li>
+
+    <li id="ref11">Food Standards Australia New Zealand (FSANZ). Golden Rice approval. December 2017 / February 2018. See also: IRRI Golden Rice page, <a href="https://www.irri.org/golden-rice" target="_blank">irri.org</a></li>
+
+    <li id="ref12">Health Canada. Golden Rice approval. March 16, 2018. ISAAA, "Golden Rice Gets Approval from Health Canada." <a href="https://www.isaaa.org/kc/cropbiotechupdate/article/default.asp?ID=16278" target="_blank">isaaa.org</a></li>
+
+    <li id="ref13">US FDA. Golden Rice consultation completed. May 2018. ISAAA, "Golden Rice Gets Approval from US FDA." <a href="https://www.isaaa.org/kc/cropbiotechupdate/article/default.asp?ID=16486" target="_blank">isaaa.org</a></li>
+
+    <li id="ref14">IRRI. "Golden Rice." <a href="https://www.irri.org/golden-rice" target="_blank">irri.org</a>. See also ISAAA coverage of Philippines commercial propagation permit (July 2021).</li>
+
+    <li id="ref15">De Guzman C. "What a Philippine court ruling means for transgenic Golden Rice." <em>Science</em> (2024). <a href="https://www.science.org/content/article/what-philippine-court-ruling-means-transgenic-golden-rice-once-hailed-dietary" target="_blank">science.org</a>. See also: ELAW, "Court Blocks Commercial Propagation of GMO Rice and Eggplant." <a href="https://elaw.org/philippines-court-blocks-commercial-gmos" target="_blank">elaw.org</a></li>
+
+    <li id="ref16">European Scientist. "Golden Rice finally on track for approval in Bangladesh." <a href="https://www.europeanscientist.com/en/agriculture/golden-rice-approval-in-bangladesh/" target="_blank">europeanscientist.com</a>. See also: <em>Science</em>, "Bangladesh could be the first to cultivate Golden Rice." <a href="https://www.science.org/content/article/bangladesh-could-be-first-cultivate-golden-rice-genetically-altered-fight-blindness" target="_blank">science.org</a></li>
+
+    <li id="ref17">Paine JA, Shipton CA, Chaggar S, et al. "Improving the nutritional value of Golden Rice through increased pro-vitamin A content." <em>Nature Biotechnology</em> 23: 482&ndash;487 (2005). <a href="https://www.nature.com/articles/nbt1082" target="_blank">nature.com</a></li>
+
+    <li id="ref18">Swamy BPM, Samia M, Boncodin R, et al. "Compositional Analysis of Genetically Engineered GR2E 'Golden Rice' in Comparison to That of Conventional Rice." <em>J. Agricultural and Food Chemistry</em> 67(28): 7986&ndash;7994 (2019). Mean all-trans-beta-carotene in milled GR2E: 3.57 &micro;g/g (range 1.96&ndash;7.31).</li>
+
+    <li id="ref19">Bollinedi H, Dhakane-Lad J, Krishnan SG, et al. "Kinetics of &beta;-carotene degradation under different storage conditions in Golden Rice lines." <em>Food Chemistry</em> (2019). See also: Schaub P et al. (2017), <em>J. Agric. Food Chem.</em></li>
+
+    <li id="ref20">IRRI. Standard cooking retention estimates for provitamin A in rice. ~20&ndash;25% loss during boiling/steaming.</li>
+
+    <li id="ref21">Tang G, Qin J, Dolnikowski GG, Russell RM, Grusak MA. "Golden Rice is an effective source of vitamin A." <em>American Journal of Clinical Nutrition</em> 89(6): 1776&ndash;1783 (2009). Bioconversion ratio: 3.8 &plusmn; 1.7:1 in healthy adults.</li>
+
+    <li id="ref22">Estimated. Children under 5 consume approximately 25&ndash;35% of adult rice portions; 30% used as central value. Consistent with NSSO household consumption data and FAO food balance approaches.</li>
+
+    <li id="ref23">WHO/FAO. "Vitamin and Mineral Requirements in Human Nutrition" (2002). Recommended dietary allowance for children 4&ndash;8 years: 400 &micro;g RAE/day. Bioconversion standard: 12 &micro;g dietary beta-carotene = 1 &micro;g RAE.</li>
+
+    <li id="ref24">Biswas S, Swamy BPM, et al. "Development and Field Evaluation of Near-Isogenic Lines of GR2-R BRRI dhan29 Golden Rice." <em>Frontiers in Plant Science</em> (2021). PMC7947304. BRRI dhan29 background: 8.5&ndash;12.5 &micro;g/g total carotenoids.</li>
+
+    <li id="ref25">India NFHS-2 (National Family Health Survey, 1998&ndash;99). VAD prevalence ~57% in children. See also: CNNS 2016&ndash;2018 finding 17.54% with updated methodology.</li>
+
+    <li id="ref26">Maziya-Dixon B, et al. "Vitamin A Deficiency Is Prevalent in Children Less Than 5 y of Age in Nigeria." <em>Journal of Nutrition</em> 136(8): 2255&ndash;2261 (2006). VAD prevalence: 29.5% nationally. <a href="https://jn.nutrition.org/article/S0022-3166(22)08425-5/fulltext" target="_blank">jn.nutrition.org</a></li>
+
+    <li id="ref27">Bangladesh National Micronutrient Survey 2011&ndash;2012. Subclinical VAD prevalence: 20.5%. See also: Cambridge Core, "Vitamin A deficiency and determinants in Bangladeshi children." <a href="https://www.cambridge.org/core/journals/public-health-nutrition/article/vitamin-a-deficiency-and-determinants-of-vitamin-a-status-in-bangladeshi-children-and-women-findings-of-a-national-survey/BFAEFFA269BCBFC2D1A89DBD3881246C" target="_blank">cambridge.org</a></li>
+
+    <li id="ref28">Philippines Food and Nutrition Research Institute (FNRI). National Nutrition Survey 2003. Subclinical VAD: ~38%.</li>
+
+    <li id="ref29">Philstar. "Rice self-sufficiency ratio recovers to 78.5% in 2023." (Dec 2024). <a href="https://www.philstar.com/business/2024/12/12/2406667/rice-self-sufficiency-ratio-recovers-785-2023" target="_blank">philstar.com</a></li>
+
+    <li id="ref30">Tanzania Demographic and Health Survey (TDHS), 2004. VAD prevalence ~33%.</li>
+
+    <li id="ref31">Nepal Demographic and Health Survey, 2001. VAD prevalence ~31%.</li>
+
+    <li id="ref32">UN Inter-agency Group for Child Mortality Estimation (IGME). UNICEF CME data. <a href="https://data.unicef.org/topic/child-survival/under-five-mortality/" target="_blank">data.unicef.org</a></li>
+
+    <li id="ref33">First Golden Rice field trial, Louisiana State University Agricultural Center, September 2004. Reported beta-carotene levels ~4x higher than greenhouse conditions.</li>
+
+    <li id="ref34">Laborte AG, et al. "Farmers' Preference for Rice Traits: Insights from Farm Surveys in Central Luzon, Philippines, 1966&ndash;2012." <em>PLOS ONE</em> (2015). <a href="https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0136562" target="_blank">plosone.org</a>. IR8 adoption: 3% (1966) to 75% (1980) in Philippines. See also: FAO, "From the Green Revolution to the Gene Revolution." <a href="https://www.fao.org/4/Y5160E/y5160e08.htm" target="_blank">fao.org</a></li>
+
+    <li id="ref35">Sommer A, Tarwotjo I, Hussaini G, Susanto D. "Increased mortality in children with mild vitamin A deficiency." <em>Lancet</em> (1983). West KP et al. "Efficacy of vitamin A in reducing preschool child mortality in Nepal." <em>Lancet</em> (1991). Fawzi WW et al. (1993). Relative risk range: 1.4&ndash;2.2; central: 1.75.</li>
+
+    <li id="ref36">UNICEF/WHO joint estimates of vitamin A supplementation coverage. <a href="https://data.unicef.org/topic/nutrition/vitamin-a-deficiency/" target="_blank">data.unicef.org</a></li>
+
+    <li id="ref37">Imdad A, et al. "Vitamin A supplementation for preventing morbidity and mortality in children from six months to five years of age." <em>Cochrane Database of Systematic Reviews</em> (2022). VAS reduces all-cause mortality by 24%.</li>
+
+    <li id="ref38">GBD 2021. "A comprehensive analysis of vitamin A deficiency burden and trends." <em>Frontiers in Nutrition</em> (2025). Global VAD-attributable deaths: ~17,374 in 2021, down from 188,458 in 1990. <a href="https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2025.1673576/full" target="_blank">frontiersin.org</a></li>
+
+    <li id="ref39">Tang G, Hu Y, Yin S, et al. "Beta-carotene in Golden Rice is as good as beta-carotene in oil at providing vitamin A to children." <em>Am. J. Clin. Nutr.</em> 96(3): 658&ndash;664 (2012). <strong>Retracted</strong> (July 2015) due to informed consent violations; scientific findings were not challenged in the retraction notice.</li>
+  </ol>
+  </div>
+</section>
+
+<footer style="border-top: 2px solid var(--border); padding-top: 1.5rem; margin-top: 3rem; font-size: 0.85rem; color: var(--text-light);">
+  <p>If you find an error, please contact the author.</p>
+</footer>
+
+</div>
+</body>
+</html>
