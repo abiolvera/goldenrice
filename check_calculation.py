@@ -48,6 +48,14 @@ QALYS_PER_BLIND_CHILD    = 21.0    # ~35 remaining years × 0.6 disability weigh
 BLINDNESS_LOW_MULT       = 2.0
 BLINDNESS_HIGH_MULT      = 4.0
 
+# How strongly does vitamin A actually cut child deaths? (the GiveWell / Cochrane question)
+# The same Cochrane meta-analysis gives two numbers: a 24% reduction (random-effects model)
+# and a 12% reduction (fixed-effects model, which gives full weight to DEVTA, the single
+# largest trial). 24% matches the model's built-in RELATIVE_RISK_VAD = 1.75, so we use it
+# as the central case; 12% is the conservative floor. GiveWell uses this same 12–24% range.
+MORTALITY_EFFECT_CENTRAL = 1.00   # 24%, random-effects (the model's built-in assumption)
+MORTALITY_EFFECT_FLOOR   = 0.50   # 12%, fixed-effects — half as strong
+
 # ============================================================================
 # 2. COUNTRY DATA  (inputs; sources cited on the page)
 # ============================================================================
@@ -238,13 +246,19 @@ print(f"{'TOTAL':12} {total_lives_lost:>12,.0f}")
 # ============================================================================
 print()
 print("=" * 70)
-print("PART D — Blindness and healthy-life-years lost")
+print("PART D — Death range, blindness, and healthy-life-years lost")
 print("=" * 70)
-children_dead          = total_lives_lost
-children_blinded_low   = children_dead * BLINDNESS_LOW_MULT
-children_blinded_high  = children_dead * BLINDNESS_HIGH_MULT
-healthy_years_lost_low  = children_dead * YEARS_LOST_PER_DEATH + children_blinded_low  * QALYS_PER_BLIND_CHILD
-healthy_years_lost_high = children_dead * YEARS_LOST_PER_DEATH + children_blinded_high * QALYS_PER_BLIND_CHILD
-print(f"Children dead:            {children_dead:>14,.0f}")
-print(f"Children blinded (2–4x):  {children_blinded_low:>14,.0f}  –  {children_blinded_high:,.0f}")
-print(f"Healthy-life-years lost:  {healthy_years_lost_low:>14,.0f}  –  {healthy_years_lost_high:,.0f}")
+children_dead_central = total_lives_lost                          # 24% effect
+children_dead_floor   = total_lives_lost * MORTALITY_EFFECT_FLOOR  # 12% effect
+children_blinded_low   = children_dead_central * BLINDNESS_LOW_MULT
+children_blinded_high  = children_dead_central * BLINDNESS_HIGH_MULT
+healthy_years_lost_low  = children_dead_central * YEARS_LOST_PER_DEATH + children_blinded_low  * QALYS_PER_BLIND_CHILD
+healthy_years_lost_high = children_dead_central * YEARS_LOST_PER_DEATH + children_blinded_high * QALYS_PER_BLIND_CHILD
+print(f"Children dead (central, 24% effect): {children_dead_central:>13,.0f}")
+print(f"Children dead (floor,   12% effect): {children_dead_floor:>13,.0f}")
+print(f"Children blinded (2–4x):             {children_blinded_low:>13,.0f}  –  {children_blinded_high:,.0f}")
+print(f"Healthy-life-years lost:             {healthy_years_lost_low:>13,.0f}  –  {healthy_years_lost_high:,.0f}")
+print()
+print("The 12% floor gives full weight to DEVTA, the largest trial (GiveWell's lower")
+print("bound). Blindness is NOT scaled down by it: the vitamin-A->blindness link is")
+print("direct and not in dispute.")

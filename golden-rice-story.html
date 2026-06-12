@@ -392,22 +392,20 @@
   <div class="big-number">
     <div class="num">~276,000</div>
     <div class="label">children dead</div>
-    <div class="label" style="font-size: 0.85rem; margin-top: 0.3rem; color: #999;">range: 40,000 &ndash; 800,000 depending on assumptions</div>
+    <div class="label" style="font-size: 0.85rem; margin-top: 0.3rem; color: #999;">or ~138,000 if vitamin A cuts deaths only half as much (see below)</div>
   </div>
 
   <div class="big-number" style="background: var(--gold-bg); margin-top: 1rem;">
     <div class="num" style="color: var(--gold);">~550,000&ndash;1,100,000</div>
     <div class="label">children blinded</div>
-    <div class="label" style="font-size: 0.85rem; margin-top: 0.3rem; color: #999;">range: 80,000 &ndash; 3,200,000</div>
   </div>
 
   <div class="big-number" style="background: #f5f4ef; margin-top: 1rem;">
     <div class="num" style="color: var(--text-light); font-size: 2.5rem;">~19&ndash;31 million</div>
     <div class="label">years of healthy life lost</div>
-    <div class="label" style="font-size: 0.85rem; margin-top: 0.3rem; color: #999;">range: 3 &ndash; 90 million</div>
   </div>
 
-  <p style="margin-top: 1.5rem; font-size: 0.92rem;">Cumulative, 2006&ndash;2024. Eleven countries where vitamin A deficiency, rice dependence, and domestic rice production overlap. The wide ranges reflect real uncertainty in beta-carotene content, storage loss, and bioconversion&mdash;spelled out in <a href="#uncertainties" style="color: var(--link);">"What could be different"</a> below.<sup class="cite"><a href="#ref3">[3]</a></sup><sup class="cite"><a href="#ref32">[32]</a></sup></p>
+  <p style="margin-top: 1.5rem; font-size: 0.92rem;">Cumulative, 2006&ndash;2024, across eleven countries where vitamin A deficiency, heavy rice diets, and home-grown rice all overlap. The death count hangs mostly on one question &mdash; how much does vitamin A really cut child deaths? The charity evaluator <strong>GiveWell</strong> reads the trial evidence as a 12&ndash;24% reduction, so the honest death range is about <strong>138,000 to 276,000</strong>. How much usable vitamin A the rice actually delivers is a separate question that could move the number further either way; both are laid out in <a href="#uncertainties" style="color: var(--link);">"What could be different"</a> below.<sup class="cite"><a href="#ref3">[3]</a></sup><sup class="cite"><a href="#ref32">[32]</a></sup></p>
 
   <div class="callout" style="margin-top: 1rem;">
     <p>This is a back-of-the-envelope estimate. I'm actively seeking feedback to make this rough estimate better. See below for the full story and calculation, and contact me at <a href="https://abio.substack.com/" target="_blank">abio.substack.com</a>.</p>
@@ -1020,6 +1018,14 @@ QALYS_PER_BLIND_CHILD    = 21.0    # ~35 remaining years × 0.6 disability weigh
 BLINDNESS_LOW_MULT       = 2.0
 BLINDNESS_HIGH_MULT      = 4.0
 
+# How strongly does vitamin A actually cut child deaths? (the GiveWell / Cochrane question)
+# The same Cochrane meta-analysis gives two numbers: a 24% reduction (random-effects model)
+# and a 12% reduction (fixed-effects model, which gives full weight to DEVTA, the single
+# largest trial). 24% matches the model&#x27;s built-in RELATIVE_RISK_VAD = 1.75, so we use it
+# as the central case; 12% is the conservative floor. GiveWell uses this same 12–24% range.
+MORTALITY_EFFECT_CENTRAL = 1.00   # 24%, random-effects (the model&#x27;s built-in assumption)
+MORTALITY_EFFECT_FLOOR   = 0.50   # 12%, fixed-effects — half as strong
+
 # ============================================================================
 # 2. COUNTRY DATA  (inputs; sources cited on the page)
 # ============================================================================
@@ -1210,16 +1216,22 @@ print(f&quot;{&#x27;TOTAL&#x27;:12} {total_lives_lost:&gt;12,.0f}&quot;)
 # ============================================================================
 print()
 print(&quot;=&quot; * 70)
-print(&quot;PART D — Blindness and healthy-life-years lost&quot;)
+print(&quot;PART D — Death range, blindness, and healthy-life-years lost&quot;)
 print(&quot;=&quot; * 70)
-children_dead          = total_lives_lost
-children_blinded_low   = children_dead * BLINDNESS_LOW_MULT
-children_blinded_high  = children_dead * BLINDNESS_HIGH_MULT
-healthy_years_lost_low  = children_dead * YEARS_LOST_PER_DEATH + children_blinded_low  * QALYS_PER_BLIND_CHILD
-healthy_years_lost_high = children_dead * YEARS_LOST_PER_DEATH + children_blinded_high * QALYS_PER_BLIND_CHILD
-print(f&quot;Children dead:            {children_dead:&gt;14,.0f}&quot;)
-print(f&quot;Children blinded (2–4x):  {children_blinded_low:&gt;14,.0f}  –  {children_blinded_high:,.0f}&quot;)
-print(f&quot;Healthy-life-years lost:  {healthy_years_lost_low:&gt;14,.0f}  –  {healthy_years_lost_high:,.0f}&quot;)
+children_dead_central = total_lives_lost                          # 24% effect
+children_dead_floor   = total_lives_lost * MORTALITY_EFFECT_FLOOR  # 12% effect
+children_blinded_low   = children_dead_central * BLINDNESS_LOW_MULT
+children_blinded_high  = children_dead_central * BLINDNESS_HIGH_MULT
+healthy_years_lost_low  = children_dead_central * YEARS_LOST_PER_DEATH + children_blinded_low  * QALYS_PER_BLIND_CHILD
+healthy_years_lost_high = children_dead_central * YEARS_LOST_PER_DEATH + children_blinded_high * QALYS_PER_BLIND_CHILD
+print(f&quot;Children dead (central, 24% effect): {children_dead_central:&gt;13,.0f}&quot;)
+print(f&quot;Children dead (floor,   12% effect): {children_dead_floor:&gt;13,.0f}&quot;)
+print(f&quot;Children blinded (2–4x):             {children_blinded_low:&gt;13,.0f}  –  {children_blinded_high:,.0f}&quot;)
+print(f&quot;Healthy-life-years lost:             {healthy_years_lost_low:&gt;13,.0f}  –  {healthy_years_lost_high:,.0f}&quot;)
+print()
+print(&quot;The 12% floor gives full weight to DEVTA, the largest trial (GiveWell&#x27;s lower&quot;)
+print(&quot;bound). Blindness is NOT scaled down by it: the vitamin-A-&gt;blindness link is&quot;)
+print(&quot;direct and not in dispute.&quot;)
 </pre></div>
 
 </section>
@@ -1236,14 +1248,23 @@ print(f&quot;Healthy-life-years lost:  {healthy_years_lost_low:&gt;14,.0f}  – 
   <h3>The storage problem</h3>
   <p>Beta-carotene breaks down in storage. The most detailed study (Schaub et al. 2017) found that Golden Rice retained about 60% of its beta-carotene after 3 weeks and only <strong>13% after 10 weeks</strong>, before leveling off.<sup class="cite"><a href="#ref19">[19]</a></sup> Our model assumes only 35% loss (65% retention), which assumes shorter storage or improved storage conditions. IRRI is working on low-lipoxygenase lines to reduce this degradation.<sup class="cite"><a href="#ref19">[19]</a></sup></p>
 
-  <h3>The baseline mortality question</h3>
-  <p>How many children die from VAD per year? This is surprisingly contested. Stevens et al. (2015) estimated ~105,700.<sup class="cite"><a href="#ref3">[3]</a></sup> Older estimates (Black et al. 2008) put it at 600,000&ndash;670,000. The most recent Global Burden of Disease analysis (2021) says just ~17,000.<sup class="cite"><a href="#ref38">[38]</a></sup> Our model uses country-specific under-5 deaths and calculates VAD-attributable deaths from prevalence and relative risk, which produces numbers broadly consistent with the Stevens 2015 estimate.</p>
+  <h3>The big one: does vitamin A actually save lives?</h3>
+  <p>This is the assumption the death count leans on hardest. For decades the answer seemed settled: giving children vitamin A cut their death rate by about <strong>24%</strong>. Then a single huge trial in India (called DEVTA), bigger than all the earlier trials combined, found almost no effect.<sup class="cite"><a href="#ref37">[37]</a></sup></p>
+
+  <p>The charity evaluator <strong>GiveWell</strong> dug into this carefully. The honest way to handle one big trial that disagrees is not to use it alone, and not to ignore it &mdash; it's to pool it with all the others. Do that and the same body of evidence gives two numbers: a <strong>24%</strong> reduction (one standard averaging method) or a <strong>12%</strong> reduction (another method that gives the giant trial more weight). GiveWell treats that 12&ndash;24% band as the realistic range.<sup class="cite"><a href="#ref37">[37]</a></sup></p>
+
+  <p>My central number (276,000) uses the 24% end. If the real effect is the 12% end, the death toll is about <strong>half &mdash; ~138,000</strong>. I did not use the headline "4%" from DEVTA on its own, because no single trial should be read in isolation, and GiveWell doesn't either.</p>
+
+  <p><strong>One thing this does not change: the blindness number.</strong> The DEVTA debate is only about deaths. Vitamin A's role in preventing blindness is direct, physical biology that nobody disputes &mdash; so the ~550,000 to 1,100,000 blindness figure stands either way.</p>
+
+  <h3>How many children die from VAD at all?</h3>
+  <p>Even the total is contested. Stevens et al. (2015) estimated ~105,700 deaths a year.<sup class="cite"><a href="#ref3">[3]</a></sup> Older work (Black et al. 2008) said 600,000&ndash;670,000. The newest Global Burden of Disease figure (2021) is just ~17,000.<sup class="cite"><a href="#ref38">[38]</a></sup> My model builds its own count from each country's child deaths, VAD rate, and risk, and lands broadly in line with Stevens 2015.</p>
 
   <h3>The bioconversion choice</h3>
-  <p>We use 3.8:1 (the Tang 2009 direct measurement on Golden Rice) rather than the WHO generic 12:1. This is explained above. If someone prefers the WHO default, all death and blindness estimates would be roughly halved.</p>
+  <p>I use 3.8:1 (the Tang 2009 direct measurement on Golden Rice) rather than the WHO generic 12:1, for the reasons given earlier. If you prefer the WHO default, all the death and blindness numbers roughly halve again.</p>
 
-  <h3>What all this means for the headline number</h3>
-  <p>Combining the biggest uncertainties: with pessimistic inputs (low beta-carotene, high storage loss, WHO generic bioconversion), the cumulative death toll could be as low as <strong>~40,000&ndash;70,000</strong>. With optimistic inputs (higher beta-carotene in newer lines, better storage, Tang 2012 bioconversion in children), it could be <strong>~500,000&ndash;800,000</strong>. Our central estimate of ~276,000 is in the middle of that range.</p>
+  <h3>What all this means</h3>
+  <p>Two separate things drive the death range. First, how strongly vitamin A cuts deaths (GiveWell's 12&ndash;24%): that alone puts the count at <strong>~138,000 to 276,000</strong>. Second, how much usable vitamin A the rice delivers (beta-carotene content, storage, cooking, bioconversion): pessimistic values here could drop it well below 138,000, optimistic values could push it past 276,000. Stack the gloomiest assumptions on both and you get tens of thousands; stack the rosiest and you clear half a million. My headline sits in the sensible middle, and I'd rather show you the whole spread than pretend at a single exact figure.</p>
 
 </section>
 
