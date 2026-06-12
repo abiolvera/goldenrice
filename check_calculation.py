@@ -1,16 +1,10 @@
 #!/usr/bin/env python3
 """
-Golden Rice "cost of delay" — full calculation, written to be double-checked.
-================================================================================
-This reproduces every number on the web page from scratch. Run it:
+Golden Rice "cost of delay" — full calculation.
 
-    python3 check_calculation.py
+Run: python3 check_calculation.py
 
-Nothing fancy, no imports beyond the standard library. Every step is spelled
-out, and the variable names are deliberately long and plain so a person can
-read the arithmetic line by line and check it.
-
-There are FOUR outputs, matching the four places numbers appear on the page:
+Four outputs, matching the four places numbers appear on the page:
   PART A — vitamin A delivered per child per day, and % of daily need   (table)
   PART B — deaths prevented per year if ALL domestic rice were Golden    (table)
   PART C — cumulative children's lives lost 2006–2024                    (headline)
@@ -20,7 +14,7 @@ There are FOUR outputs, matching the four places numbers appear on the page:
 import math
 
 # ============================================================================
-# 1. PARAMETERS  (the knobs; every one is cited on the web page)
+# 1. PARAMETERS  (sources cited on the web page)
 # ============================================================================
 BETA_CAROTENE_UG_PER_G   = 18.0    # µg beta-carotene per gram of GR2E grain (field-realistic)
 STORAGE_RETENTION        = 0.65    # fraction surviving 3–6 months tropical storage
