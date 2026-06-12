@@ -328,6 +328,21 @@
     white-space: pre-wrap;
   }
 
+  /* --- Scrollable code window --- */
+  .code-window {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border-radius: 6px;
+    margin: 1.5rem 0;
+    max-height: 420px;
+    overflow: auto;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.78rem;
+    line-height: 1.55;
+  }
+  .code-window pre { margin: 0; padding: 1.25rem 1.5rem; }
+  .code-window .cmt { color: #6a9955; }
+
   /* --- References --- */
   .references {
     font-size: 0.82rem;
@@ -515,7 +530,7 @@
         <td>30% <span class="source-note">est.<sup class="cite"><a href="#ref26">[26]</a></sup></span></td>
         <td>~8% (yam, cassava dominate)</td>
         <td>55% (~45% imported)</td>
-        <td class="num-cell">60 &micro;g RAE</td>
+        <td class="num-cell">61 &micro;g RAE</td>
         <td class="num-cell">15%</td>
         <td class="num-cell"><strong>~2,350</strong></td>
       </tr>
@@ -524,7 +539,7 @@
         <td>36% <span class="source-note">est., WHO SE Asia regional, 2000<sup class="cite"><a href="#ref3">[3]</a></sup></span></td>
         <td>76%<sup class="cite"><a href="#ref4">[4]</a></sup></td>
         <td>100% (net exporter)</td>
-        <td class="num-cell">295 &micro;g RAE</td>
+        <td class="num-cell">296 &micro;g RAE</td>
         <td class="num-cell">74%</td>
         <td class="num-cell"><strong>~1,275</strong></td>
       </tr>
@@ -533,7 +548,7 @@
         <td>21% <span class="source-note">Nat'l survey, 2000<sup class="cite"><a href="#ref27">[27]</a></sup></span></td>
         <td>73%<sup class="cite"><a href="#ref4">[4]</a></sup></td>
         <td>97%</td>
-        <td class="num-cell">265 &micro;g RAE</td>
+        <td class="num-cell">266 &micro;g RAE</td>
         <td class="num-cell">66%</td>
         <td class="num-cell"><strong>~670</strong></td>
       </tr>
@@ -542,16 +557,16 @@
         <td>45% <span class="source-note">est., WHO SE Asia regional, 2000<sup class="cite"><a href="#ref3">[3]</a></sup></span></td>
         <td>68%<sup class="cite"><a href="#ref4">[4]</a></sup></td>
         <td>100% (net exporter)</td>
-        <td class="num-cell">250 &micro;g RAE</td>
+        <td class="num-cell">251 &micro;g RAE</td>
         <td class="num-cell">63%</td>
-        <td class="num-cell"><strong>~580</strong></td>
+        <td class="num-cell"><strong>~600</strong></td>
       </tr>
       <tr>
         <td><strong>Cambodia</strong></td>
         <td>45% <span class="source-note">est., WHO SE Asia regional, 2000<sup class="cite"><a href="#ref3">[3]</a></sup></span></td>
         <td>80%<sup class="cite"><a href="#ref4">[4]</a></sup></td>
         <td>100% (net exporter)</td>
-        <td class="num-cell">305 &micro;g RAE</td>
+        <td class="num-cell">304 &micro;g RAE</td>
         <td class="num-cell">76%</td>
         <td class="num-cell"><strong>~350</strong></td>
       </tr>
@@ -569,8 +584,8 @@
         <td>42% <span class="source-note">est., WHO SE Asia regional, 2000<sup class="cite"><a href="#ref3">[3]</a></sup></span></td>
         <td>65%+<sup class="cite"><a href="#ref4">[4]</a></sup></td>
         <td>100%</td>
-        <td class="num-cell">290 &micro;g RAE</td>
-        <td class="num-cell">73%</td>
+        <td class="num-cell">288 &micro;g RAE</td>
+        <td class="num-cell">72%</td>
         <td class="num-cell"><strong>~230</strong></td>
       </tr>
       <tr>
@@ -591,8 +606,8 @@
         <td>31% <span class="source-note">DHS, 2001<sup class="cite"><a href="#ref31">[31]</a></sup></span></td>
         <td>44%<sup class="cite"><a href="#ref4">[4]</a></sup></td>
         <td>90%</td>
-        <td class="num-cell">180 &micro;g RAE</td>
-        <td class="num-cell">45%</td>
+        <td class="num-cell">182 &micro;g RAE</td>
+        <td class="num-cell">46%</td>
         <td class="num-cell"><strong>~130</strong></td>
       </tr>
       <tr class="total-row">
@@ -603,7 +618,7 @@
   </table>
   </div>
 
-  <p style="font-size: 0.85rem; color: var(--text-light);"><strong>How "deaths prevented" was calculated:</strong> For each country, we took the number of under-5 deaths attributable to VAD (from UN mortality data<sup class="cite"><a href="#ref32">[32]</a></sup> and VAD prevalence rates), subtracted the children already protected by existing vitamin A supplement programs, then multiplied by the fraction of daily vitamin A need that Golden Rice would fill. The result is how many of those remaining deaths Golden Rice could avert. Full formula and every input are in the "Show your work" section below.</p>
+  <p style="font-size: 0.85rem; color: var(--text-light);"><strong>How "deaths prevented" was calculated:</strong> For each country, we took the number of under-5 deaths attributable to VAD (from UN mortality data<sup class="cite"><a href="#ref32">[32]</a></sup> and VAD prevalence rates), subtracted the children already protected by existing vitamin A supplement programs, then multiplied by the fraction of daily vitamin A need that Golden Rice would fill. The result is how many of those remaining deaths Golden Rice could avert. Full formula and every input are in <a href="#calculation" style="color: var(--link);">"The calculation"</a> below.</p>
 
   <h3>Deaths prevented per year if all domestic rice were Golden Rice</h3>
 
@@ -647,7 +662,7 @@
       <div class="bar-track">
         <div class="bar-fill" style="width: 2.1%;"></div>
       </div>
-      <span class="bar-value">~580</span>
+      <span class="bar-value">~600</span>
     </div>
     <div class="bar-row">
       <span class="bar-label">Cambodia</span>
@@ -817,9 +832,15 @@
 
 <!-- ============ SHOW YOUR WORK ============ -->
 <section>
-  <h2>Show your work</h2>
+  <h2 id="calculation">The calculation</h2>
 
-  <p>Here is the exact formula used for every number in this article. Every variable is defined below with its source. You can verify any number by plugging values in.</p>
+  <p>Here is exactly how every number was produced, in plain words first.</p>
+
+  <p><strong>For each country, each year, the logic is:</strong> start with the number of children under 5 who died &rarr; take the share of those deaths caused by vitamin A deficiency &rarr; subtract the children already protected by existing vitamin A supplement programs &rarr; multiply by how many would have adopted Golden Rice that year &rarr; multiply by how much of a child's daily vitamin A need the rice actually delivers (with diminishing returns, since the first bit of vitamin A matters most). That gives the lives Golden Rice would have saved in that country, that year.</p>
+
+  <p><strong>Then three things are layered on top:</strong> (1) every country and every year from 2006 to 2024 is added together for the cumulative total; (2) adoption is not instant &mdash; it follows a slow-then-fast-then-leveling S-curve starting from each country's launch year, because that is how new rice varieties actually spread; and (3) the deaths shrink toward the end because vitamin A deficiency has been declining on its own, as incomes rise and supplement programs expand.</p>
+
+  <p>The exact formula:</p>
 
   <div class="formula">Lives saved (per country, per year) =
 
@@ -944,6 +965,251 @@ Years of healthy life lost:
     </tbody>
   </table>
   </div>
+
+  <h3>Run it yourself</h3>
+
+  <p>The whole thing is one short Python script with no special libraries. Every parameter and every country's data is right at the top, so you can change any input and watch the numbers move. Save it as <code>check_calculation.py</code> and run <code>python3 check_calculation.py</code>. It prints four tables that match the four sets of numbers on this page.</p>
+
+  <div class="code-window"><pre>#!/usr/bin/env python3
+&quot;&quot;&quot;
+Golden Rice &quot;cost of delay&quot; — full calculation, written to be double-checked.
+================================================================================
+This reproduces every number on the web page from scratch. Run it:
+
+    python3 check_calculation.py
+
+Nothing fancy, no imports beyond the standard library. Every step is spelled
+out so you (or anyone) can follow the arithmetic by hand.
+
+There are FOUR outputs, matching the four places numbers appear on the page:
+  PART A — vitamin A delivered per child per day, and % of daily need   (table)
+  PART B — deaths prevented per year if ALL domestic rice were Golden    (table)
+  PART C — cumulative children&#x27;s lives lost 2006–2024                    (headline)
+  PART D — blindness and years-of-healthy-life-lost                      (headline)
+&quot;&quot;&quot;
+
+import math
+
+# ============================================================================
+# 1. PARAMETERS  (the knobs; every one is cited on the web page)
+# ============================================================================
+BETA_CAROTENE_UG_PER_G   = 18.0    # µg beta-carotene per gram of GR2E grain (field-realistic)
+STORAGE_RETENTION        = 0.65    # fraction surviving 3–6 months tropical storage
+COOKING_RETENTION        = 0.60    # fraction surviving cooking
+BIOCONVERSION            = 3.8     # µg beta-carotene -&gt; 1 µg retinol (Tang 2009, GR-specific)
+CHILD_RDA_UG             = 400.0   # µg RAE/day recommended for a young child (WHO)
+CHILD_RICE_FRACTION      = 0.30    # a child under 5 eats ~30% of the per-capita adult portion
+
+RELATIVE_RISK_VAD        = 1.75    # VAD child&#x27;s mortality risk vs. a replete child
+EFFECTIVE_VAS_MULTIPLIER = 0.70    # share of &quot;VAS-covered&quot; kids actually protected
+DOSE_RESPONSE_CONCAVITY  = 0.60    # partial RDA -&gt; less-than-proportional mortality benefit
+
+ADOPTION_CEILING         = 0.70    # max adoption in the realistic S-curve scenario
+ADOPTION_MIDPOINT_YEARS  = 8.0     # years after launch to reach half the ceiling
+ADOPTION_STEEPNESS       = 0.45    # S-curve slope
+
+MODEL_START_YEAR         = 2000
+MODEL_END_YEAR           = 2024
+
+# Years-of-life constants (WHO; used only for PART D)
+YEARS_LOST_PER_DEATH     = 28.0    # avg life expectancy lost per under-5 death
+QALYS_PER_BLIND_CHILD    = 21.0    # ~35 remaining years × 0.6 disability weight
+
+# Blindness multiplier: WHO says 2–4x as many children go blind from VAD as die from it
+BLINDNESS_LOW_MULT       = 2.0
+BLINDNESS_HIGH_MULT      = 4.0
+
+# ============================================================================
+# 2. COUNTRY DATA  (inputs; sources cited on the page)
+# ============================================================================
+# under5_deaths: anchor years, linearly interpolated between
+# vad_baseline: (year, prevalence fraction), declines at vad_decline per year
+# vas: anchor years of vitamin-A-supplement coverage, interpolated
+# rice_kg: per-capita milled rice, kg/year
+# domestic: fraction of consumed rice grown domestically (reachable by seed system)
+# deploy: counterfactual Golden Rice launch year in this country
+# rice_eating_vad: fraction of VAD-affected children who actually live on rice
+COUNTRIES = {
+    &quot;India&quot;: dict(
+        under5={2000: 2_300_000, 2005: 1_900_000, 2010: 1_450_000, 2015: 1_000_000, 2020: 700_000, 2024: 560_000},
+        vad_year=2000, vad_base=0.57, vad_decline=0.020,
+        vas={2000: 0.44, 2005: 0.50, 2010: 0.55, 2015: 0.57, 2020: 0.55, 2024: 0.54},
+        rice_kg=145.0, domestic=1.00, deploy=2009, rice_eating_vad=0.55),
+    &quot;Indonesia&quot;: dict(
+        under5={2000: 290_000, 2005: 225_000, 2010: 160_000, 2015: 112_000, 2020: 80_000, 2024: 65_000},
+        vad_year=2000, vad_base=0.50, vad_decline=0.030,
+        vas={2000: 0.70, 2005: 0.78, 2010: 0.82, 2015: 0.80, 2020: 0.77, 2024: 0.75},
+        rice_kg=135.0, domestic=0.95, deploy=2008, rice_eating_vad=1.00),
+    &quot;Nigeria&quot;: dict(
+        under5={2000: 850_000, 2005: 780_000, 2010: 700_000, 2015: 610_000, 2020: 490_000, 2024: 420_000},
+        vad_year=2000, vad_base=0.30, vad_decline=0.015,
+        vas={2000: 0.40, 2005: 0.50, 2010: 0.55, 2015: 0.52, 2020: 0.50, 2024: 0.48},
+        rice_kg=40.0, domestic=0.55, deploy=2012, rice_eating_vad=0.35),
+    &quot;Myanmar&quot;: dict(
+        under5={2000: 120_000, 2005: 90_000, 2010: 59_000, 2015: 37_000, 2020: 25_000, 2024: 20_000},
+        vad_year=2000, vad_base=0.36, vad_decline=0.025,
+        vas={2000: 0.55, 2005: 0.65, 2010: 0.73, 2015: 0.74, 2020: 0.70, 2024: 0.58},
+        rice_kg=195.0, domestic=1.00, deploy=2009, rice_eating_vad=1.00),
+    &quot;Bangladesh&quot;: dict(
+        under5={2000: 250_000, 2005: 180_000, 2010: 115_000, 2015: 70_000, 2020: 48_000, 2024: 36_000},
+        vad_year=2000, vad_base=0.21, vad_decline=0.035,
+        vas={2000: 0.75, 2005: 0.87, 2010: 0.93, 2015: 0.92, 2020: 0.89, 2024: 0.87},
+        rice_kg=175.0, domestic=0.97, deploy=2007, rice_eating_vad=1.00),
+    &quot;Vietnam&quot;: dict(
+        under5={2000: 85_000, 2005: 61_000, 2010: 42_000, 2015: 27_000, 2020: 19_000, 2024: 16_000},
+        vad_year=2000, vad_base=0.45, vad_decline=0.040,
+        vas={2000: 0.76, 2005: 0.84, 2010: 0.87, 2015: 0.85, 2020: 0.83, 2024: 0.80},
+        rice_kg=165.0, domestic=1.00, deploy=2007, rice_eating_vad=1.00),
+    &quot;Cambodia&quot;: dict(
+        under5={2000: 50_000, 2005: 35_000, 2010: 21_000, 2015: 13_000, 2020: 8_500, 2024: 6_500},
+        vad_year=2000, vad_base=0.45, vad_decline=0.030,
+        vas={2000: 0.65, 2005: 0.78, 2010: 0.82, 2015: 0.83, 2020: 0.81, 2024: 0.79},
+        rice_kg=200.0, domestic=1.00, deploy=2010, rice_eating_vad=1.00),
+    &quot;Philippines&quot;: dict(
+        under5={2000: 65_000, 2005: 51_000, 2010: 37_000, 2015: 25_000, 2020: 17_000, 2024: 13_500},
+        vad_year=2003, vad_base=0.38, vad_decline=0.040,
+        vas={2000: 0.70, 2005: 0.80, 2010: 0.85, 2015: 0.83, 2020: 0.82, 2024: 0.80},
+        rice_kg=115.0, domestic=0.85, deploy=2006, rice_eating_vad=1.00),
+    &quot;Laos&quot;: dict(
+        under5={2000: 22_000, 2005: 16_000, 2010: 11_000, 2015: 7_000, 2020: 4_800, 2024: 3_800},
+        vad_year=2000, vad_base=0.42, vad_decline=0.025,
+        vas={2000: 0.55, 2005: 0.68, 2010: 0.74, 2015: 0.75, 2020: 0.72, 2024: 0.70},
+        rice_kg=190.0, domestic=1.00, deploy=2011, rice_eating_vad=1.00),
+    &quot;Tanzania&quot;: dict(
+        under5={2000: 225_000, 2005: 200_000, 2010: 160_000, 2015: 115_000, 2020: 78_000, 2024: 60_000},
+        vad_year=2000, vad_base=0.33, vad_decline=0.018,
+        vas={2000: 0.50, 2005: 0.62, 2010: 0.70, 2015: 0.70, 2020: 0.67, 2024: 0.63},
+        rice_kg=32.0, domestic=0.60, deploy=2013, rice_eating_vad=0.28),
+    &quot;Nepal&quot;: dict(
+        under5={2000: 55_000, 2005: 40_000, 2010: 26_000, 2015: 16_000, 2020: 10_500, 2024: 8_000},
+        vad_year=2000, vad_base=0.31, vad_decline=0.030,
+        vas={2000: 0.70, 2005: 0.85, 2010: 0.89, 2015: 0.87, 2020: 0.83, 2024: 0.80},
+        rice_kg=120.0, domestic=0.90, deploy=2009, rice_eating_vad=0.65),
+}
+
+# ============================================================================
+# 3. HELPER FUNCTIONS
+# ============================================================================
+def interpolate(anchors, year):
+    &quot;&quot;&quot;Linear interpolation between anchor years; flat outside the range.&quot;&quot;&quot;
+    yrs = sorted(anchors)
+    if year &lt;= yrs[0]:  return float(anchors[yrs[0]])
+    if year &gt;= yrs[-1]: return float(anchors[yrs[-1]])
+    for y0, y1 in zip(yrs, yrs[1:]):
+        if y0 &lt;= year &lt;= y1:
+            t = (year - y0) / (y1 - y0)
+            return anchors[y0] + t * (anchors[y1] - anchors[y0])
+    return float(anchors[yrs[-1]])
+
+def vitamin_a_per_day(rice_kg):
+    &quot;&quot;&quot;µg RAE delivered to a child per day from Golden Rice.&quot;&quot;&quot;
+    daily_rice_g = rice_kg * 1000.0 / 365.0          # per-capita grams/day
+    child_rice_g = daily_rice_g * CHILD_RICE_FRACTION # child&#x27;s portion
+    beta_carotene = child_rice_g * BETA_CAROTENE_UG_PER_G * STORAGE_RETENTION * COOKING_RETENTION
+    return beta_carotene / BIOCONVERSION
+
+def efficacy_fraction(rice_kg):
+    &quot;&quot;&quot;Fraction of the child&#x27;s daily vitamin A need that Golden Rice fills (capped at 1.0).&quot;&quot;&quot;
+    return min(vitamin_a_per_day(rice_kg) / CHILD_RDA_UG, 1.0)
+
+def paf(prevalence):
+    &quot;&quot;&quot;Population attributable fraction: share of under-5 deaths due to VAD.&quot;&quot;&quot;
+    excess = prevalence * (RELATIVE_RISK_VAD - 1.0)
+    return excess / (1.0 + excess)
+
+def vad_prevalence(c, year):
+    prev = c[&quot;vad_base&quot;] * ((1.0 - c[&quot;vad_decline&quot;]) ** (year - c[&quot;vad_year&quot;]))
+    return max(prev, 0.02)   # floor: 2% residual in hard-to-reach populations
+
+def logistic_adoption(years_since_deploy):
+    if years_since_deploy &lt;= 0:
+        return 0.0
+    s = 1.0 / (1.0 + math.exp(-ADOPTION_STEEPNESS * (years_since_deploy - ADOPTION_MIDPOINT_YEARS)))
+    return s   # returns 0..1; caller multiplies by the ceiling
+
+# ============================================================================
+# PART A — vitamin A per day &amp; % of daily need  (the table&#x27;s middle columns)
+# ============================================================================
+print(&quot;=&quot; * 70)
+print(&quot;PART A — Vitamin A delivered per child per day&quot;)
+print(&quot;=&quot; * 70)
+print(f&quot;{&#x27;Country&#x27;:12} {&#x27;rice kg/yr&#x27;:&gt;10} {&#x27;µg RAE/day&#x27;:&gt;11} {&#x27;% of 400µg&#x27;:&gt;11}&quot;)
+for name, c in COUNTRIES.items():
+    rae = vitamin_a_per_day(c[&quot;rice_kg&quot;])
+    pct = rae / CHILD_RDA_UG * 100
+    print(f&quot;{name:12} {c[&#x27;rice_kg&#x27;]:&gt;10.0f} {rae:&gt;11.0f} {pct:&gt;10.0f}%&quot;)
+
+# ============================================================================
+# PART B — deaths prevented per year IF ALL DOMESTIC RICE WERE GOLDEN RICE
+# ============================================================================
+# This is the table&#x27;s right-hand column. It is a &quot;today&quot; steady-state number:
+#   - use the most recent year (2024) deaths and prevalence
+#   - assume FULL reach: every domestically grown grain is Golden Rice, so the
+#     adoption term = domestic_rice_fraction × rice_eating_vad_fraction
+#     (NOT the 0.70 S-curve ceiling — this is the theoretical maximum)
+print()
+print(&quot;=&quot; * 70)
+print(&quot;PART B — Deaths prevented / year at 100% domestic adoption (2024)&quot;)
+print(&quot;=&quot; * 70)
+YEAR = 2024
+print(f&quot;{&#x27;Country&#x27;:12} {&#x27;deaths/yr&#x27;:&gt;10}&quot;)
+total_annual = 0.0
+for name, c in COUNTRIES.items():
+    u5      = interpolate(c[&quot;under5&quot;], YEAR)
+    prev    = vad_prevalence(c, YEAR)
+    vad_d   = u5 * paf(prev)
+    eff_vas = interpolate(c[&quot;vas&quot;], YEAR) * EFFECTIVE_VAS_MULTIPLIER
+    unprot  = vad_d * (1.0 - eff_vas)
+    reach   = c[&quot;domestic&quot;] * c[&quot;rice_eating_vad&quot;]              # full adoption, no 0.70 ceiling
+    eff     = efficacy_fraction(c[&quot;rice_kg&quot;]) ** DOSE_RESPONSE_CONCAVITY
+    saved   = unprot * reach * eff
+    total_annual += saved
+    print(f&quot;{name:12} {saved:&gt;10,.0f}&quot;)
+print(f&quot;{&#x27;TOTAL&#x27;:12} {total_annual:&gt;10,.0f}&quot;)
+
+# ============================================================================
+# PART C — cumulative lives lost 2006–2024  (the realistic S-curve scenario)
+# ============================================================================
+# Same per-year formula, but now adoption follows the logistic S-curve starting
+# from each country&#x27;s deployment year, capped at 0.70 × domestic × rice_eating.
+# Summed over every year 2000–2024.
+print()
+print(&quot;=&quot; * 70)
+print(&quot;PART C — Cumulative children&#x27;s lives lost, realistic adoption&quot;)
+print(&quot;=&quot; * 70)
+print(f&quot;{&#x27;Country&#x27;:12} {&#x27;cumulative&#x27;:&gt;12}&quot;)
+grand_total = 0.0
+for name, c in COUNTRIES.items():
+    ceiling = ADOPTION_CEILING * c[&quot;domestic&quot;] * c[&quot;rice_eating_vad&quot;]
+    eff = efficacy_fraction(c[&quot;rice_kg&quot;]) ** DOSE_RESPONSE_CONCAVITY
+    country_cum = 0.0
+    for year in range(MODEL_START_YEAR, MODEL_END_YEAR + 1):
+        u5      = interpolate(c[&quot;under5&quot;], year)
+        prev    = vad_prevalence(c, year)
+        vad_d   = u5 * paf(prev)
+        eff_vas = interpolate(c[&quot;vas&quot;], year) * EFFECTIVE_VAS_MULTIPLIER
+        unprot  = vad_d * (1.0 - eff_vas)
+        adopt   = logistic_adoption(year - c[&quot;deploy&quot;]) * ceiling
+        country_cum += unprot * adopt * eff
+    grand_total += country_cum
+    print(f&quot;{name:12} {country_cum:&gt;12,.0f}&quot;)
+print(f&quot;{&#x27;TOTAL&#x27;:12} {grand_total:&gt;12,.0f}&quot;)
+
+# ============================================================================
+# PART D — blindness and years of healthy life lost
+# ============================================================================
+print()
+print(&quot;=&quot; * 70)
+print(&quot;PART D — Blindness and healthy-life-years lost&quot;)
+print(&quot;=&quot; * 70)
+deaths = grand_total
+blind_low  = deaths * BLINDNESS_LOW_MULT
+blind_high = deaths * BLINDNESS_HIGH_MULT
+qaly_low   = deaths * YEARS_LOST_PER_DEATH + blind_low  * QALYS_PER_BLIND_CHILD
+qaly_high  = deaths * YEARS_LOST_PER_DEATH + blind_high * QALYS_PER_BLIND_CHILD
+print(f&quot;Children dead:            {deaths:&gt;14,.0f}&quot;)
+print(f&quot;Children blinded (2–4x):  {blind_low:&gt;14,.0f}  –  {blind_high:,.0f}&quot;)
+print(f&quot;Healthy-life-years lost:  {qaly_low:&gt;14,.0f}  –  {qaly_high:,.0f}&quot;)</pre></div>
 
 </section>
 
