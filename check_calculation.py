@@ -7,7 +7,8 @@ This reproduces every number on the web page from scratch. Run it:
     python3 check_calculation.py
 
 Nothing fancy, no imports beyond the standard library. Every step is spelled
-out so you (or anyone) can follow the arithmetic by hand.
+out, and the variable names are deliberately long and plain so a person can
+read the arithmetic line by line and check it.
 
 There are FOUR outputs, matching the four places numbers appear on the page:
   PART A — vitamin A delivered per child per day, and % of daily need   (table)
@@ -28,19 +29,19 @@ BIOCONVERSION            = 3.8     # µg beta-carotene -> 1 µg retinol (Tang 20
 CHILD_RDA_UG             = 400.0   # µg RAE/day recommended for a young child (WHO)
 CHILD_RICE_FRACTION      = 0.30    # a child under 5 eats ~30% of the per-capita adult portion
 
-RELATIVE_RISK_VAD        = 1.75    # VAD child's mortality risk vs. a replete child
-EFFECTIVE_VAS_MULTIPLIER = 0.70    # share of "VAS-covered" kids actually protected
-DOSE_RESPONSE_CONCAVITY  = 0.60    # partial RDA -> less-than-proportional mortality benefit
+RELATIVE_RISK_VAD        = 1.75    # a VAD child's risk of death vs. a vitamin-A-replete child
+EFFECTIVE_VAS_MULTIPLIER = 0.70    # share of "supplement-covered" kids actually protected
+DOSE_RESPONSE_CONCAVITY  = 0.60    # partial vitamin A -> less-than-proportional benefit
 
 ADOPTION_CEILING         = 0.70    # max adoption in the realistic S-curve scenario
 ADOPTION_MIDPOINT_YEARS  = 8.0     # years after launch to reach half the ceiling
 ADOPTION_STEEPNESS       = 0.45    # S-curve slope
 
 MODEL_START_YEAR         = 2000
-MODEL_END_YEAR           = 2024
+MODEL_END_YEAR           = 2024    # last year with real, filled-in data
 
 # Years-of-life constants (WHO; used only for PART D)
-YEARS_LOST_PER_DEATH     = 28.0    # avg life expectancy lost per under-5 death
+YEARS_LOST_PER_DEATH     = 28.0    # discounted life-years lost per under-5 death (raw ~55-60)
 QALYS_PER_BLIND_CHILD    = 21.0    # ~35 remaining years × 0.6 disability weight
 
 # Blindness multiplier: WHO says 2–4x as many children go blind from VAD as die from it
@@ -118,42 +119,49 @@ COUNTRIES = {
 # ============================================================================
 # 3. HELPER FUNCTIONS
 # ============================================================================
-def interpolate(anchors, year):
-    """Linear interpolation between anchor years; flat outside the range."""
-    yrs = sorted(anchors)
-    if year <= yrs[0]:  return float(anchors[yrs[0]])
-    if year >= yrs[-1]: return float(anchors[yrs[-1]])
-    for y0, y1 in zip(yrs, yrs[1:]):
-        if y0 <= year <= y1:
-            t = (year - y0) / (y1 - y0)
-            return anchors[y0] + t * (anchors[y1] - anchors[y0])
-    return float(anchors[yrs[-1]])
+def value_for_year(anchor_points, year):
+    """Linear interpolation between anchor years; flat outside the range.
+    e.g. if we know deaths in 2020 and 2024, estimate 2022 as the midpoint."""
+    years = sorted(anchor_points)
+    if year <= years[0]:  return float(anchor_points[years[0]])
+    if year >= years[-1]: return float(anchor_points[years[-1]])
+    for earlier_year, later_year in zip(years, years[1:]):
+        if earlier_year <= year <= later_year:
+            how_far_between = (year - earlier_year) / (later_year - earlier_year)
+            return anchor_points[earlier_year] + how_far_between * (anchor_points[later_year] - anchor_points[earlier_year])
+    return float(anchor_points[years[-1]])
 
-def vitamin_a_per_day(rice_kg):
-    """µg RAE delivered to a child per day from Golden Rice."""
-    daily_rice_g = rice_kg * 1000.0 / 365.0          # per-capita grams/day
-    child_rice_g = daily_rice_g * CHILD_RICE_FRACTION # child's portion
-    beta_carotene = child_rice_g * BETA_CAROTENE_UG_PER_G * STORAGE_RETENTION * COOKING_RETENTION
-    return beta_carotene / BIOCONVERSION
+def vitamin_a_delivered_per_day(rice_kg_per_year):
+    """µg of vitamin A (RAE) a young child gets per day from Golden Rice."""
+    rice_grams_per_person_per_day = rice_kg_per_year * 1000.0 / 365.0   # kg/yr -> g/day (×1000 is kg->g)
+    rice_grams_a_child_eats       = rice_grams_per_person_per_day * CHILD_RICE_FRACTION
+    beta_carotene_micrograms      = (rice_grams_a_child_eats
+                                     * BETA_CAROTENE_UG_PER_G
+                                     * STORAGE_RETENTION
+                                     * COOKING_RETENTION)
+    return beta_carotene_micrograms / BIOCONVERSION
 
-def efficacy_fraction(rice_kg):
-    """Fraction of the child's daily vitamin A need that Golden Rice fills (capped at 1.0)."""
-    return min(vitamin_a_per_day(rice_kg) / CHILD_RDA_UG, 1.0)
+def fraction_of_daily_need_met(rice_kg_per_year):
+    """How much of a child's daily vitamin A requirement Golden Rice fills (capped at 100%)."""
+    return min(vitamin_a_delivered_per_day(rice_kg_per_year) / CHILD_RDA_UG, 1.0)
 
-def paf(prevalence):
-    """Population attributable fraction: share of under-5 deaths due to VAD."""
-    excess = prevalence * (RELATIVE_RISK_VAD - 1.0)
-    return excess / (1.0 + excess)
+def share_of_deaths_caused_by_vad(vad_rate):
+    """Of all under-5 deaths, the fraction attributable to vitamin A deficiency.
+    Standard epidemiology formula (the 'population attributable fraction')."""
+    extra_risk = vad_rate * (RELATIVE_RISK_VAD - 1.0)
+    return extra_risk / (1.0 + extra_risk)
 
-def vad_prevalence(c, year):
-    prev = c["vad_base"] * ((1.0 - c["vad_decline"]) ** (year - c["vad_year"]))
-    return max(prev, 0.02)   # floor: 2% residual in hard-to-reach populations
+def vad_rate_for_year(country, year):
+    """Share of children who are vitamin-A-deficient in a given year (declines over time)."""
+    rate = country["vad_base"] * ((1.0 - country["vad_decline"]) ** (year - country["vad_year"]))
+    return max(rate, 0.02)   # floor: 2% residual in hard-to-reach populations
 
-def logistic_adoption(years_since_deploy):
-    if years_since_deploy <= 0:
+def adoption_s_curve(years_since_launch):
+    """Share of the reachable crop that has switched to Golden Rice, 0..1.
+    Slow at first, fast in the middle, leveling off — how new seeds really spread."""
+    if years_since_launch <= 0:
         return 0.0
-    s = 1.0 / (1.0 + math.exp(-ADOPTION_STEEPNESS * (years_since_deploy - ADOPTION_MIDPOINT_YEARS)))
-    return s   # returns 0..1; caller multiplies by the ceiling
+    return 1.0 / (1.0 + math.exp(-ADOPTION_STEEPNESS * (years_since_launch - ADOPTION_MIDPOINT_YEARS)))
 
 # ============================================================================
 # PART A — vitamin A per day & % of daily need  (the table's middle columns)
@@ -162,10 +170,10 @@ print("=" * 70)
 print("PART A — Vitamin A delivered per child per day")
 print("=" * 70)
 print(f"{'Country':12} {'rice kg/yr':>10} {'µg RAE/day':>11} {'% of 400µg':>11}")
-for name, c in COUNTRIES.items():
-    rae = vitamin_a_per_day(c["rice_kg"])
-    pct = rae / CHILD_RDA_UG * 100
-    print(f"{name:12} {c['rice_kg']:>10.0f} {rae:>11.0f} {pct:>10.0f}%")
+for country_name, country in COUNTRIES.items():
+    vitamin_a            = vitamin_a_delivered_per_day(country["rice_kg"])
+    percent_of_daily_need = vitamin_a / CHILD_RDA_UG * 100
+    print(f"{country_name:12} {country['rice_kg']:>10.0f} {vitamin_a:>11.0f} {percent_of_daily_need:>10.0f}%")
 
 # ============================================================================
 # PART B — deaths prevented per year IF ALL DOMESTIC RICE WERE GOLDEN RICE
@@ -181,49 +189,49 @@ print("PART B — Deaths prevented / year at 100% domestic adoption (2024)")
 print("=" * 70)
 YEAR = 2024
 print(f"{'Country':12} {'deaths/yr':>10}")
-total_annual = 0.0
-for name, c in COUNTRIES.items():
-    u5      = interpolate(c["under5"], YEAR)
-    prev    = vad_prevalence(c, YEAR)
-    vad_d   = u5 * paf(prev)
-    eff_vas = interpolate(c["vas"], YEAR) * EFFECTIVE_VAS_MULTIPLIER
-    unprot  = vad_d * (1.0 - eff_vas)
-    reach   = c["domestic"] * c["rice_eating_vad"]              # full adoption, no 0.70 ceiling
-    eff     = efficacy_fraction(c["rice_kg"]) ** DOSE_RESPONSE_CONCAVITY
-    saved   = unprot * reach * eff
-    total_annual += saved
-    print(f"{name:12} {saved:>10,.0f}")
-print(f"{'TOTAL':12} {total_annual:>10,.0f}")
+total_deaths_prevented_per_year = 0.0
+for country_name, country in COUNTRIES.items():
+    under5_deaths_this_year         = value_for_year(country["under5"], YEAR)
+    vad_rate_this_year              = vad_rate_for_year(country, YEAR)
+    deaths_caused_by_vad            = under5_deaths_this_year * share_of_deaths_caused_by_vad(vad_rate_this_year)
+    share_protected_by_supplements  = value_for_year(country["vas"], YEAR) * EFFECTIVE_VAS_MULTIPLIER
+    deaths_not_prevented_by_supps   = deaths_caused_by_vad * (1.0 - share_protected_by_supplements)
+    share_reachable_by_golden_rice  = country["domestic"] * country["rice_eating_vad"]   # full reach, no 0.70 ceiling
+    golden_rice_effectiveness       = fraction_of_daily_need_met(country["rice_kg"]) ** DOSE_RESPONSE_CONCAVITY
+    lives_saved_per_year            = (deaths_not_prevented_by_supps
+                                       * share_reachable_by_golden_rice
+                                       * golden_rice_effectiveness)
+    total_deaths_prevented_per_year += lives_saved_per_year
+    print(f"{country_name:12} {lives_saved_per_year:>10,.0f}")
+print(f"{'TOTAL':12} {total_deaths_prevented_per_year:>10,.0f}")
 
 # ============================================================================
 # PART C — cumulative lives lost 2006–2024  (the realistic S-curve scenario)
 # ============================================================================
-# Same per-year formula, but now adoption follows the logistic S-curve starting
-# from each country's deployment year, capped at 0.70 × domestic × rice_eating.
-# Summed over every year 2000–2024.
+# Same per-year logic as PART B, but now adoption ramps up along the S-curve
+# starting from each country's launch year (capped at 0.70 × domestic × rice_eating),
+# and we add up every single year from 2000 to 2024.
 print()
 print("=" * 70)
 print("PART C — Cumulative children's lives lost, realistic adoption")
 print("=" * 70)
 print(f"{'Country':12} {'cumulative':>12}")
-grand_total = 0.0
-by_country_cum = {}
-for name, c in COUNTRIES.items():
-    ceiling = ADOPTION_CEILING * c["domestic"] * c["rice_eating_vad"]
-    eff = efficacy_fraction(c["rice_kg"]) ** DOSE_RESPONSE_CONCAVITY
-    country_cum = 0.0
+total_lives_lost = 0.0
+for country_name, country in COUNTRIES.items():
+    max_adoption              = ADOPTION_CEILING * country["domestic"] * country["rice_eating_vad"]
+    golden_rice_effectiveness = fraction_of_daily_need_met(country["rice_kg"]) ** DOSE_RESPONSE_CONCAVITY
+    country_total = 0.0
     for year in range(MODEL_START_YEAR, MODEL_END_YEAR + 1):
-        u5      = interpolate(c["under5"], year)
-        prev    = vad_prevalence(c, year)
-        vad_d   = u5 * paf(prev)
-        eff_vas = interpolate(c["vas"], year) * EFFECTIVE_VAS_MULTIPLIER
-        unprot  = vad_d * (1.0 - eff_vas)
-        adopt   = logistic_adoption(year - c["deploy"]) * ceiling
-        country_cum += unprot * adopt * eff
-    by_country_cum[name] = country_cum
-    grand_total += country_cum
-    print(f"{name:12} {country_cum:>12,.0f}")
-print(f"{'TOTAL':12} {grand_total:>12,.0f}")
+        under5_deaths_this_year        = value_for_year(country["under5"], year)
+        vad_rate_this_year             = vad_rate_for_year(country, year)
+        deaths_caused_by_vad           = under5_deaths_this_year * share_of_deaths_caused_by_vad(vad_rate_this_year)
+        share_protected_by_supplements = value_for_year(country["vas"], year) * EFFECTIVE_VAS_MULTIPLIER
+        deaths_not_prevented_by_supps  = deaths_caused_by_vad * (1.0 - share_protected_by_supplements)
+        adoption_this_year             = adoption_s_curve(year - country["deploy"]) * max_adoption
+        country_total += deaths_not_prevented_by_supps * adoption_this_year * golden_rice_effectiveness
+    total_lives_lost += country_total
+    print(f"{country_name:12} {country_total:>12,.0f}")
+print(f"{'TOTAL':12} {total_lives_lost:>12,.0f}")
 
 # ============================================================================
 # PART D — blindness and years of healthy life lost
@@ -232,12 +240,11 @@ print()
 print("=" * 70)
 print("PART D — Blindness and healthy-life-years lost")
 print("=" * 70)
-deaths = grand_total
-blind_low  = deaths * BLINDNESS_LOW_MULT
-blind_high = deaths * BLINDNESS_HIGH_MULT
-qaly_low   = deaths * YEARS_LOST_PER_DEATH + blind_low  * QALYS_PER_BLIND_CHILD
-qaly_high  = deaths * YEARS_LOST_PER_DEATH + blind_high * QALYS_PER_BLIND_CHILD
-print(f"Children dead:            {deaths:>14,.0f}")
-print(f"Children blinded (2–4x):  {blind_low:>14,.0f}  –  {blind_high:,.0f}")
-print(f"Healthy-life-years lost:  {qaly_low:>14,.0f}  –  {qaly_high:,.0f}")
-print(f"  (deaths × {YEARS_LOST_PER_DEATH:.0f} life-years) + (blind × {QALYS_PER_BLIND_CHILD:.0f} QALYs)")
+children_dead          = total_lives_lost
+children_blinded_low   = children_dead * BLINDNESS_LOW_MULT
+children_blinded_high  = children_dead * BLINDNESS_HIGH_MULT
+healthy_years_lost_low  = children_dead * YEARS_LOST_PER_DEATH + children_blinded_low  * QALYS_PER_BLIND_CHILD
+healthy_years_lost_high = children_dead * YEARS_LOST_PER_DEATH + children_blinded_high * QALYS_PER_BLIND_CHILD
+print(f"Children dead:            {children_dead:>14,.0f}")
+print(f"Children blinded (2–4x):  {children_blinded_low:>14,.0f}  –  {children_blinded_high:,.0f}")
+print(f"Healthy-life-years lost:  {healthy_years_lost_low:>14,.0f}  –  {healthy_years_lost_high:,.0f}")
