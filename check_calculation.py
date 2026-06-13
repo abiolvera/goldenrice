@@ -16,7 +16,7 @@ import math
 # ============================================================================
 # 1. PARAMETERS  (sources cited on the web page)
 # ============================================================================
-BETA_CAROTENE_UG_PER_G   = 18.0    # µg beta-carotene per gram of GR2E grain (field-realistic)
+BETA_CAROTENE_UG_PER_G   = 6.0     # µg beta-carotene per gram of GR2E grain (field-realistic)
 STORAGE_RETENTION        = 0.65    # fraction surviving 3–6 months tropical storage
 COOKING_RETENTION        = 0.60    # fraction surviving cooking
 BIOCONVERSION            = 3.8     # µg beta-carotene -> 1 µg retinol (Tang 2009, GR-specific)
