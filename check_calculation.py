@@ -45,10 +45,11 @@ BLINDNESS_HIGH_MULT      = 4.0
 # How strongly does vitamin A actually cut child deaths? (the GiveWell / Cochrane question)
 # The same Cochrane meta-analysis gives two numbers: a 24% reduction (random-effects model)
 # and a 12% reduction (fixed-effects model, which gives full weight to DEVTA, the single
-# largest trial). 24% matches the model's built-in RELATIVE_RISK_VAD = 1.75, so we use it
-# as the central case; 12% is the conservative floor. GiveWell uses this same 12–24% range.
-MORTALITY_EFFECT_CENTRAL = 1.00   # 24%, random-effects (the model's built-in assumption)
-MORTALITY_EFFECT_FLOOR   = 0.50   # 12%, fixed-effects — half as strong
+# largest trial). The model's raw output corresponds to the 24% (high) end; we center the
+# headline on the MIDPOINT (~18%) and show 12–24% as the range. GiveWell uses this same band.
+MORTALITY_EFFECT_HIGH    = 1.00   # 24%, random-effects (the model's raw output)
+MORTALITY_EFFECT_CENTRAL = 0.75   # ~18%, midpoint of the 12–24% range
+MORTALITY_EFFECT_FLOOR   = 0.50   # 12%, fixed-effects (full weight to DEVTA)
 
 # ============================================================================
 # 2. COUNTRY DATA  (inputs; sources cited on the page)
@@ -202,7 +203,8 @@ for country_name, country in COUNTRIES.items():
     golden_rice_effectiveness       = fraction_of_daily_need_met(country["rice_kg"]) ** DOSE_RESPONSE_CONCAVITY
     lives_saved_per_year            = (deaths_not_prevented_by_supps
                                        * share_reachable_by_golden_rice
-                                       * golden_rice_effectiveness)
+                                       * golden_rice_effectiveness
+                                       * MORTALITY_EFFECT_CENTRAL)   # 18% mortality midpoint
     total_deaths_prevented_per_year += lives_saved_per_year
     print(f"{country_name:12} {lives_saved_per_year:>10,.0f}")
 print(f"{'TOTAL':12} {total_deaths_prevented_per_year:>10,.0f}")
@@ -232,8 +234,8 @@ for country_name, country in COUNTRIES.items():
         adoption_this_year             = adoption_s_curve(year - country["deploy"]) * max_adoption
         country_total += deaths_not_prevented_by_supps * adoption_this_year * golden_rice_effectiveness
     total_lives_lost += country_total
-    print(f"{country_name:12} {country_total:>12,.0f}")
-print(f"{'TOTAL':12} {total_lives_lost:>12,.0f}")
+    print(f"{country_name:12} {country_total * MORTALITY_EFFECT_CENTRAL:>12,.0f}")   # 18% midpoint
+print(f"{'TOTAL':12} {total_lives_lost * MORTALITY_EFFECT_CENTRAL:>12,.0f}")
 
 # ============================================================================
 # PART D — blindness and years of healthy life lost
@@ -242,17 +244,17 @@ print()
 print("=" * 70)
 print("PART D — Death range, blindness, and healthy-life-years lost")
 print("=" * 70)
-children_dead_central = total_lives_lost                          # 24% effect
-children_dead_floor   = total_lives_lost * MORTALITY_EFFECT_FLOOR  # 12% effect
+children_dead_central = total_lives_lost * MORTALITY_EFFECT_CENTRAL  # 18% midpoint (headline)
+children_dead_floor   = total_lives_lost * MORTALITY_EFFECT_FLOOR    # 12% (low end of range)
+children_dead_high    = total_lives_lost * MORTALITY_EFFECT_HIGH     # 24% (high end of range)
 children_blinded_low   = children_dead_central * BLINDNESS_LOW_MULT
 children_blinded_high  = children_dead_central * BLINDNESS_HIGH_MULT
 healthy_years_lost_low  = children_dead_central * YEARS_LOST_PER_DEATH + children_blinded_low  * QALYS_PER_BLIND_CHILD
 healthy_years_lost_high = children_dead_central * YEARS_LOST_PER_DEATH + children_blinded_high * QALYS_PER_BLIND_CHILD
-print(f"Children dead (central, 24% effect): {children_dead_central:>13,.0f}")
-print(f"Children dead (floor,   12% effect): {children_dead_floor:>13,.0f}")
-print(f"Children blinded (2–4x):             {children_blinded_low:>13,.0f}  –  {children_blinded_high:,.0f}")
+print(f"Children dead (central, 18% effect): {children_dead_central:>13,.0f}")
+print(f"Children dead range (12% – 24%):     {children_dead_floor:>13,.0f}  –  {children_dead_high:,.0f}")
+print(f"Children blinded (2–4x of central):  {children_blinded_low:>13,.0f}  –  {children_blinded_high:,.0f}")
 print(f"Healthy-life-years lost:             {healthy_years_lost_low:>13,.0f}  –  {healthy_years_lost_high:,.0f}")
 print()
-print("The 12% floor gives full weight to DEVTA, the largest trial (GiveWell's lower")
-print("bound). Blindness is NOT scaled down by it: the vitamin-A->blindness link is")
-print("direct and not in dispute.")
+print("The range spans GiveWell's reading of the trials (12% gives full weight to DEVTA,")
+print("the largest trial; 24% is the random-effects figure). Blindness uses the central.")
