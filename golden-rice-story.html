@@ -378,8 +378,7 @@
 
 <!-- ============ HERO ============ -->
 <header class="hero">
-  <h1>Golden Rice: The Cost of Delay</h1>
-  <p class="byline">Abi Olvera &middot; June 2026</p>
+  <h1>Golden Rice Delay Dashboard</h1>
 </header>
 
 <!-- ============ THE NUMBERS ============ -->
@@ -392,7 +391,7 @@
   <div class="big-number">
     <div class="num">~107,000</div>
     <div class="label">children dead</div>
-    <div class="label" style="font-size: 0.85rem; margin-top: 0.3rem; color: #999;">range ~71,000&ndash;143,000 (see below)</div>
+    <div class="label" style="font-size: 0.85rem; margin-top: 0.3rem; color: #999;">range ~71,000&ndash;143,000<sup class="cite"><a href="#fn-range">&dagger;</a></sup></div>
   </div>
 
   <div class="big-number" style="background: var(--gold-bg); margin-top: 1rem;">
@@ -407,10 +406,10 @@
 
   <p style="margin-top: 1.5rem; font-size: 0.92rem;">Cumulative, 2006&ndash;2024, across eleven countries where vitamin A deficiency, heavy rice diets, and home-grown rice all overlap. The headline is the midpoint; the death count hangs mostly on one question &mdash; how much does vitamin A really cut child deaths? The charity evaluator <strong>GiveWell</strong> reads the trial evidence as a 12&ndash;24% reduction, which gives the death range of <strong>~71,000 to 143,000</strong> shown above.<sup class="cite"><a href="#ref3">[3]</a></sup><sup class="cite"><a href="#ref32">[32]</a></sup></p>
 
-  <p style="font-size: 0.8rem; color: #999;">Beta-carotene content is set at 6 &micro;g/g &mdash; the average of the only two field studies that measured actual beta-carotene per gram of GR2E grain, in the Philippines (Swamy 2019) and Bangladesh (Biswas 2021).<sup class="cite"><a href="#ref18">[18]</a></sup><sup class="cite"><a href="#ref24">[24]</a></sup></p>
+  <p style="font-size: 0.8rem; color: #999;" id="fn-range">&dagger; The range depends on estimates of how much vitamin A reduces child mortality (GiveWell's reading of the trials: 12&ndash;24%).<sup class="cite"><a href="#ref3">[3]</a></sup><br>Beta-carotene content is set at 6 &micro;g/g &mdash; the average of the only two field studies that measured actual beta-carotene per gram of GR2E grain, in the Philippines (Swamy 2019) and Bangladesh (Biswas 2021).<sup class="cite"><a href="#ref18">[18]</a></sup><sup class="cite"><a href="#ref24">[24]</a></sup></p>
 
   <div class="callout" style="margin-top: 1rem;">
-    <p>This is a back-of-the-envelope estimate. I'm actively seeking feedback to make this rough estimate better. See below for the full story and calculation, and contact me at <a href="https://abio.substack.com/" target="_blank">abio.substack.com</a>.</p>
+    <p>I'm actively seeking feedback to make this back-of-the-envelope estimate better. Contact me at <a href="https://abio.substack.com/" target="_blank">abio.substack.com</a>.</p>
   </div>
 </section>
 
@@ -455,18 +454,9 @@
 <section>
   <h2>How I got these numbers</h2>
 
-  <p>I'm only counting countries where <strong>three things are true at the same time</strong>:</p>
-  <ol style="margin: 0 0 1rem 1.5rem;">
-    <li>Vitamin A deficiency is a significant cause of child death</li>
-    <li>Rice is a major part of the diet (not cassava, not maize, not wheat)</li>
-    <li>The country grows enough of its own rice that switching to Golden Rice varieties would actually reach children</li>
-  </ol>
+  <p>See <a href="#calculation" style="color: var(--link);">the calculation</a> (in Python) for the full breakdown. In sum, it adds up the countries where vitamin A deficiency is a significant cause of child death, rice is a major part of the diet (as opposed to cassava, maize, or wheat), and the country grows enough of its own rice that switching to Golden Rice would reach children.</p>
 
-  <p>China is excluded because VAD prevalence has dropped to very low levels there. Countries where yams, cassava, or maize are the primary staple (most of Sub-Saharan Africa) are excluded or heavily discounted because Golden Rice only helps if people actually eat rice.</p>
-
-  <div class="callout">
-    <p>This is a back-of-the-envelope estimate. Not an exhaustive model&mdash;a simplified one. I don't have a research team. I'm trying to get the best answer I can to a question no one's been answering. Every input and source is below so you can check the math.</p>
-  </div>
+  <p>Note: China is excluded because vitamin A deficiency prevalence is now very low.</p>
 </section>
 
 <!-- ============ COUNTRY TABLE ============ -->
@@ -486,7 +476,7 @@
       <li><strong>Child RDA:</strong> 400 &micro;g retinol activity equivalents (RAE) per day<sup class="cite"><a href="#ref23">[23]</a></sup></li>
     </ul>
     <p style="margin-top: 0.5rem; font-size: 0.82rem; color: #888;"><strong>Where the 6 &micro;g/g comes from:</strong> Only two studies have measured beta-carotene in milled grain of the <em>deployed</em> GR2E event. Swamy 2019 measured it directly in Philippine lines: <strong>3.57 &micro;g/g</strong>.<sup class="cite"><a href="#ref18">[18]</a></sup> Biswas 2021 measured Bangladesh (BRRI dhan29) lines at 10.6 &micro;g/g <em>total</em> carotenoids, of which the paper says 80&ndash;90% is beta-carotene &mdash; about <strong>9 &micro;g/g</strong>.<sup class="cite"><a href="#ref24">[24]</a></sup> The midpoint is ~6. Higher figures you may see (20&ndash;37 &micro;g/g) are the original lab donor line before it was bred into farmers' varieties &mdash; not the rice that would actually be grown. Storage and cooking losses are applied separately, below.</p>
-    <p style="margin-top: 0.5rem; font-size: 0.82rem; color: #888;"><strong>Why 3.8:1 bioconversion instead of the WHO 12:1 default:</strong> The WHO uses 12:1 as a generic ratio for all plant-source beta-carotene&mdash;spinach, carrots, sweet potatoes, etc. But those foods store beta-carotene in green tissue, behind plant cell walls and chloroplasts that the gut has trouble breaking down. Golden Rice is different: the beta-carotene is in the starchy endosperm, not green tissue. The only direct measurement of Golden Rice bioconversion (Tang et al. 2009) found <strong>3.8:1</strong> in healthy adults.<sup class="cite"><a href="#ref21">[21]</a></sup> A second study in children found an even better 2.3:1, but it was retracted after uproar because researchers didn't disclose that the rice was genetically modified. It is unclear whether this disclosure was necessary. The scientific findings themselves were never challenged&mdash;only the lack of disclosure.<sup class="cite"><a href="#ref39">[39]</a></sup> If someone prefers the WHO generic 12:1 default&mdash;which appears to understate bioconversion based on both Golden Rice&ndash;specific studies in healthy children and adults&mdash;all estimates below would be roughly halved.</p>
+    <p style="margin-top: 0.5rem; font-size: 0.82rem; color: #888;"><strong>Why 3.8:1 bioconversion instead of the WHO 12:1 default:</strong> The WHO uses 12:1 as a generic ratio for all plant-source beta-carotene&mdash;spinach, carrots, sweet potatoes, etc. But those foods store beta-carotene in green tissue, behind plant cell walls and chloroplasts that the gut has trouble breaking down. Golden Rice is different: the beta-carotene is in the starchy endosperm, not green tissue. The only direct measurement of Golden Rice bioconversion (Tang et al. 2009) found <strong>3.8:1</strong> in healthy adults.<sup class="cite"><a href="#ref21">[21]</a></sup> A second study in children found an even better 2.3:1, but it was retracted after uproar because researchers didn't disclose that the rice was genetically modified. It is unclear whether this disclosure was necessary. The scientific findings themselves were never challenged&mdash;only the lack of disclosure.<sup class="cite"><a href="#ref39">[39]</a></sup> If someone prefers the WHO generic 12:1 default, all estimates below would be roughly halved.</p>
   </div>
 
   <div class="table-wrap">
@@ -705,19 +695,11 @@
 
 <!-- ============ CUMULATIVE TOLL ============ -->
 <section>
-  <h2>Now multiply by years</h2>
+  <h2>Multiplied by years</h2>
 
-  <p>Golden Rice 2 was scientifically ready by 2005. The improved variety was published in <em>Nature Biotechnology</em> that year, achieving 23x more beta-carotene than the original.<sup class="cite"><a href="#ref17">[17]</a></sup> The first field trial was in Louisiana in 2004.<sup class="cite"><a href="#ref33">[33]</a></sup></p>
-
-  <p>But new rice varieties don't get adopted overnight. The famous "Miracle Rice" IR8, released in 1966, went from 3% to 75% adoption in the Philippines over 14 years.<sup class="cite"><a href="#ref34">[34]</a></sup> That's considered fast. And no variety reaches 100%&mdash;even the most successful top out around 70&ndash;90%.<sup class="cite"><a href="#ref34">[34]</a></sup></p>
-
-  <p>So we used a realistic adoption curve: slow at first, then accelerating, then leveling off at a 70% ceiling. We assumed deployment would have started country by country between 2006 and 2013, depending on regulatory capacity and IRRI partnerships.<sup class="cite"><a href="#ref34">[34]</a></sup></p>
+  <p>Golden Rice's current variety (GR2E) was ready by 2005.<sup class="cite"><a href="#ref17">[17]</a></sup> We used a realistic adoption curve: slow at first, then accelerating, then leveling off at a 70% ceiling. We assumed deployment would have started country by country between 2006 and 2013, depending on regulatory capacity and IRRI partnerships.<sup class="cite"><a href="#ref34">[34]</a></sup></p>
 
   <p>Under these assumptions, our model estimates <strong>approximately 107,000 children's lives lost</strong> (range 71,000&ndash;143,000) and <strong>214,000&ndash;428,000 children blinded</strong> across these 11 countries from 2006 to 2024. The blindness estimate uses the WHO ratio: globally, 2&ndash;4x as many children go blind from vitamin A deficiency as die from it.<sup class="cite"><a href="#ref2">[2]</a></sup><sup class="cite"><a href="#ref35">[35]</a></sup></p>
-
-  <h3>Year by year: lives that could have been saved</h3>
-
-  <p>In the early years, few lives would have been saved because adoption was just starting. By the late 2010s, the model reaches peak impact as adoption approaches its ceiling. The decline after 2021 reflects falling VAD prevalence and child mortality&mdash;the underlying problem is slowly getting better even without Golden Rice, due to economic growth and vitamin A supplement programs.</p>
 
   <div class="year-chart">
     <div class="year-bar-group"><div class="year-bar" style="height: 0%;" title="2006: 0"></div></div>
@@ -747,6 +729,8 @@
     <span>'21</span><span>'22</span><span>'23</span><span>'24</span>
   </div>
   <p style="font-size: 0.82rem; color: var(--text-light); text-align: center;">Estimated annual lives saved per year if Golden Rice had been deployed starting 2006&ndash;2013 (varies by country).<br>Peak: ~10,500 in 2021. Hover/tap bars for exact values.</p>
+
+  <p>The decline after 2021 reflects falling VAD prevalence and child mortality&mdash;the underlying problem is slowly getting better even without Golden Rice, due to economic growth and vitamin A supplement programs.</p>
 
   <h3>Per-country cumulative lives lost, 2006&ndash;2024</h3>
 
@@ -968,7 +952,7 @@ Years of healthy life lost:
 
   <h3>Run it yourself</h3>
 
-  <p>The whole thing is one short Python script with no special libraries. Every parameter and every country's data is right at the top, so you can change any input and watch the numbers move. Save it as <code>check_calculation.py</code> and run <code>python3 check_calculation.py</code>. It prints four tables that match the four sets of numbers on this page.</p>
+  <p>The whole thing is one short Python script with no special libraries. Save it as <code>check_calculation.py</code> and run <code>python3 check_calculation.py</code>. It prints four tables that match the four sets of numbers on this page.</p>
 
   <div class="code-window"><pre>#!/usr/bin/env python3
 &quot;&quot;&quot;
@@ -976,7 +960,6 @@ Golden Rice &quot;cost of delay&quot; — full calculation.
 
 Run: python3 check_calculation.py
 
-Four outputs, matching the four places numbers appear on the page:
   PART A — vitamin A delivered per child per day, and % of daily need   (table)
   PART B — deaths prevented per year if ALL domestic rice were Golden    (table)
   PART C — cumulative children&#x27;s lives lost 2006–2024                    (headline)
@@ -1249,20 +1232,7 @@ print(&quot;the largest trial; 24% is the random-effects figure). Blindness uses
   <h3>The big one: does vitamin A actually save lives?</h3>
   <p>This is the assumption the death count leans on hardest. For decades the answer seemed settled: giving children vitamin A cut their death rate by about <strong>24%</strong>. Then a single huge trial in India (called DEVTA), bigger than all the earlier trials combined, found almost no effect.<sup class="cite"><a href="#ref37">[37]</a></sup></p>
 
-  <p>The charity evaluator <strong>GiveWell</strong> dug into this carefully. The honest way to handle one big trial that disagrees is not to use it alone, and not to ignore it &mdash; it's to pool it with all the others. Do that and the same body of evidence gives two numbers: a <strong>24%</strong> reduction (one standard averaging method) or a <strong>12%</strong> reduction (another method that gives the giant trial more weight). GiveWell treats that 12&ndash;24% band as the realistic range.<sup class="cite"><a href="#ref37">[37]</a></sup></p>
-
-  <p>My headline (107,000) sits at the midpoint of that range. The high end, ~143,000, uses the 24% (random-effects) reading; the low end, ~71,000, uses the 12% (fixed-effects) reading that gives full weight to DEVTA. I did not use the headline "4%" from DEVTA on its own, because no single trial should be read in isolation, and GiveWell doesn't either.</p>
-
-  <p><strong>One thing this does not change: the blindness number.</strong> The DEVTA debate is only about deaths. Vitamin A's role in preventing blindness is direct, physical biology that nobody disputes &mdash; so the ~214,000 to 428,000 blindness figure stands either way.</p>
-
-  <h3>How many children die from VAD at all?</h3>
-  <p>Even the total is contested. Stevens et al. (2015) estimated ~105,700 deaths a year.<sup class="cite"><a href="#ref3">[3]</a></sup> Older work (Black et al. 2008) said 600,000&ndash;670,000. The newest Global Burden of Disease figure (2021) is just ~17,000.<sup class="cite"><a href="#ref38">[38]</a></sup> My model builds its own count from each country's child deaths, VAD rate, and risk, and lands broadly in line with Stevens 2015.</p>
-
-  <h3>The bioconversion choice</h3>
-  <p>I use 3.8:1 (the Tang 2009 direct measurement on Golden Rice) rather than the WHO generic 12:1, for the reasons given earlier. If you prefer the WHO default, all the death and blindness numbers roughly halve again.</p>
-
-  <h3>What all this means</h3>
-  <p>Two separate things drive the death range. First, how strongly vitamin A cuts deaths (GiveWell's 12&ndash;24%): that alone puts the count at <strong>~71,000 to 143,000</strong>. Second, how much usable vitamin A the rice delivers (beta-carotene content, storage, cooking, bioconversion): pessimistic values here could drop it below 71,000, optimistic values could push it past 143,000. Stack the gloomiest assumptions on both and you get tens of thousands; stack the rosiest and it's a few hundred thousand. My headline sits in the sensible middle, and I'd rather show you the whole spread than pretend at a single exact figure.</p>
+  <p>My headline (107,000) sits at the midpoint of GiveWell's 12&ndash;24% range. The high end, ~143,000, uses the 24% (random-effects) reading; the low end, ~71,000, uses the 12% (fixed-effects) reading that gives full weight to DEVTA. I did not use the headline "4%" from DEVTA on its own, because no single trial should be read in isolation.</p>
 
 </section>
 
@@ -1353,10 +1323,6 @@ print(&quot;the largest trial; 24% is the random-effects figure). Blindness uses
   </ol>
   </div>
 </section>
-
-<footer style="border-top: 2px solid var(--border); padding-top: 1.5rem; margin-top: 3rem; font-size: 0.85rem; color: var(--text-light);">
-  <p>If you find an error, please contact the author.</p>
-</footer>
 
 </div>
 </body>

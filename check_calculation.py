@@ -4,7 +4,6 @@ Golden Rice "cost of delay" — full calculation.
 
 Run: python3 check_calculation.py
 
-Four outputs, matching the four places numbers appear on the page:
   PART A — vitamin A delivered per child per day, and % of daily need   (table)
   PART B — deaths prevented per year if ALL domestic rice were Golden    (table)
   PART C — cumulative children's lives lost 2006–2024                    (headline)
